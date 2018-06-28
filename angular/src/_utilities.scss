@@ -1,0 +1,327 @@
+body {
+    margin:0;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto !important;
+    min-width: initial !important;
+    padding:2rem;
+}
+
+.container-fluid {
+    max-width: 1800px;
+    margin: 0 auto !important;
+    min-width: initial !important;
+    padding:2rem;
+}
+
+// Mixins
+
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+
+
+
+
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+
+
+// End Mixins
+
+
+
+
+// Media Query Ranges
+$small-screen-up: 601px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1201px !default;
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+
+
+
+// Spacers
+$spacer:                     1rem !default;
+$spacer-x:                   $spacer !default;
+$spacer-y:                   $spacer !default;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+  6: ($spacer * 5)
+) !default;
+
+// Margin and Padding
+
+
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+
+        .#{$abbrev}#{$infix}-#{$size}  { #{$prop}:        $length !important; }
+        .#{$abbrev}t#{$infix}-#{$size} { #{$prop}-top:    $length !important; }
+        .#{$abbrev}r#{$infix}-#{$size} { #{$prop}-right:  $length !important; }
+        .#{$abbrev}b#{$infix}-#{$size} { #{$prop}-bottom: $length !important; }
+        .#{$abbrev}l#{$infix}-#{$size} { #{$prop}-left:   $length !important; }
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+          #{$prop}-left:  $length !important;
+        }
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-top:    $length !important;
+          #{$prop}-bottom: $length !important;
+        }
+      }
+    }
+
+    // Some special margin utils
+    .m#{$infix}-auto  { margin:        auto !important; }
+    .mt#{$infix}-auto { margin-top:    auto !important; }
+    .mr#{$infix}-auto { margin-right:  auto !important; }
+    .mb#{$infix}-auto { margin-bottom: auto !important; }
+    .ml#{$infix}-auto { margin-left:   auto !important; }
+    .mx#{$infix}-auto {
+      margin-right: auto !important;
+      margin-left:  auto !important;
+    }
+    .my#{$infix}-auto {
+      margin-top:    auto !important;
+      margin-bottom: auto !important;
+    }
+  }
+}
+
+
+.img-fluid {
+  max-width: 100%;
+  height:auto;
+}
+
+.inline-ul>li {
+  display: inline;
+}
+
+.list-inline-div>div {
+  display: inline-block;
+}
+
+// Center text on mobile
+.center-on-small-only {
+  @media #{$medium-and-down} {
+    text-align: center;
+    .img-fluid {
+      display: inline;
+    }
+  }
+}
+
+
+
+.hidden-md-down {
+  @media (max-width: $medium-screen){
+    display: none!important;
+  }  
+}
+
+
+
+.mb-r {
+  @media (min-width: $medium-screen){
+    margin-bottom: 3rem!important;
+  }   
+  @media (max-width: $medium-screen){
+    margin-bottom: 2rem!important;
+  }  
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-thin {
+  font-weight: 100;
+}
+
+.font-9 { font-size: 9px; }
+.font-10 { font-size: 10px; }
+.font-11 { font-size: 11px; }
+.font-12 { font-size: 12px; }
+.font-13 { font-size: 13px; }
+.font-14 { font-size: 14px; }
+.font-15 { font-size: 15px; }
+.font-16 { font-size: 16px; }
+
+
+
+
+//text manipulation
+
+
+
+$colors: (
+  white,
+  black,
+  gray,
+  lightgray,
+  red
+) !default;
+
+
+@each $color in $colors {
+  // text color
+  .#{$color}-text {
+      color: $color;
+  }
+}
+
+
+.text-shadowed {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+// text transform
+.font-up {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+
+
+// horizontal align and float
+@each $align in (left,center,right) {
+    .text-#{$align} {        text-align:$align;  place-content: $align !important;  }
+    .float-#{$align} {        float: $align; }    
+}
+
+
+
+
+
+// vertical align
+@each $align in (top, middle,bottom) {
+    .align-#{$align} {
+        vertical-align:$align;
+    }
+}
+
+// Dividers light and dark variations
+.hr-light {
+  border-top: 1px solid #fff;
+}
+
+.hr-dark {
+  border-top: 1px solid #666;
+}
+
+
+// Mixin itself
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+
+
+
+
+
+
+
+// Usage as a mixin
+.clearfix {
+  @include clearfix;
+}
+
+
+
+.w-100 {
+  width:100%;
+}
+
+.w-75 {
+  width:75%;
+}
+
+.w-50 {
+  width:50%;
+}
+
+.w-25 {
+  width:25%;
+}
+
+.w-15 {
+  width:15%;
+}
+
+
+/* Rules for sizing the icon. */
+.mat-icon { 
+  width:inherit !important;
+  height:inherit !important; 
+}
+
+
+.d-inline {
+  display:inline;
+}
+

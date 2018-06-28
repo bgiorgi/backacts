@@ -1,0 +1,49 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="log-in-wrapper">
+  <img src="../../assets/img/logo.png" alt="" class="top-logo">
+  <p class="login">Sign Up</p>
+  <p>The Book of Acts is completely free to use.</p>
+
+
+  <form class="login-form" #signUpForm="ngForm" (ngSubmit)="onSubmit(username.value,email.value, password.value, passwordConfirm.value)">
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" #username required>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="email" #email required>
+    </mat-form-field>
+
+    <br>
+
+    <div class="inline-input-wrapper">
+      <mat-form-field appearance="outline" class="red-input">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="password" type="password" #password required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="password" type="password" #passwordConfirm required>
+      </mat-form-field>
+    </div>
+
+    <br>
+    <p>By joining you agree to our <span class="grey-link">Terms</span> and<span class="grey-link"> Privacy policy</span></p>
+    <button mat-button type="submit" class="red-button" [disabled]="signedUp">Sign Up</button>
+  </form>
+  <p *ngIf="!signedUp" class="no-account">Have account?</p>
+  <p class="text-link" [routerLink]="['/log-in']">Login</p>
+
+
+
+
+
+
+  <img src="../../assets/img/inst_logo.png" alt="">
+  <p>© 2018 The book of Acts</p>
+
+</div>

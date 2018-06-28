@@ -1,0 +1,164 @@
+@import '../../../../theme';
+
+.menu-wrapper {
+  width: 250px;
+  height: calc(100vh - 100px);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  padding: 30px;
+  overflow-y: auto;
+
+  background-image: url('../../../../assets/img/bg.png');
+  opacity: 1;
+
+  transition-property: all;
+  transition-duration: 0.5s;
+
+  z-index: 15;
+}
+
+.menu-wrapper.shown {
+  height:  calc(100vh - 100px);
+  opacity: 1;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  span {
+    color: #606060;
+    margin-right: 10px;
+  }
+
+  mat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    cursor: pointer;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-expansion-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.accordion-wrapper {
+  border: 1px solid lightgray;
+  padding-bottom: 20px;
+
+  mat-icon {
+    margin-right: 10px;
+  }
+}
+
+.red-button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.black-button {
+  width: 100%;
+
+  margin-top: 190px;
+
+  color: #DD0C39;
+  border: 1px solid #DD0C39;
+  font-weight: 800;
+
+  span {
+    float: left;
+    font-size: 20px;
+  }
+
+  &:hover {
+      color: #0E0E0E ;
+      background-color: $custom-red;
+  }
+}
+
+.dark-background {
+  width: 0;
+  height: 100%;
+
+  display: block;
+  position: fixed;
+  top:0;
+  left:0;
+
+  background-color: black;
+  opacity: 0;
+
+  z-index: 13;
+}
+
+.dark-background.shown{
+  width: 100%;
+  opacity: 0.7;
+}
+
+.mobile-menu {
+  width: calc(100% - 40px);
+  height: 50px;
+
+  position: fixed;
+  bottom: -50px;
+  left:0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+
+  background-color: #F5F1F3;
+  opacity: 0;
+
+  transition-property: all;
+  transition-duration: 0.5s;
+
+  z-index: 20;
+
+  span {
+    font-size: 40px;
+  }
+
+  mat-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 43px;
+
+    cursor: pointer;
+  }
+
+}
+
+@media screen and (max-width: 1300px) {
+  .menu-wrapper {
+    //width:0;
+    height: 0;
+    opacity: 0;
+    position: fixed;
+
+    .black-button {
+      margin-top: 10px;
+    }
+
+  }
+
+  .mobile-menu {
+    bottom: 0px;
+    opacity: 1;
+
+  }
+}

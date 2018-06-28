@@ -1,0 +1,83 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+@import url('//fonts.googleapis.com/icon?family=Material+Icons');
+
+@include mat-core();
+
+$custom-red: #DD0C39;
+
+$md-custom-red: (
+  50 : #fbe2e7,
+  100 : #f5b6c4,
+  200 : #ee869c,
+  300 : #e75574,
+  400 : #e23057,
+  500 : #dd0c39,
+  600 : #d90a33,
+  700 : #d4082c,
+  800 : #cf0624,
+  900 : #c70317,
+  A100 : #ffeff0,
+  A200 : #ffbcc0,
+  A400 : #ff8990,
+  A700 : #ff6f78,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$primary: mat-palette($md-custom-red, 500);
+$accent:  mat-palette($mat-red, 500, A200, A400);
+$warn:    mat-palette($mat-red, 500);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+
+body {
+  font-weight: normal;
+}
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+}
+
+.custom-red-color {
+  color: $custom-red;
+}
+
+.red-input {
+  .mat-form-field-outline.mat-form-field-outline-thick  {
+    color: $custom-red !important;
+  }
+
+
+  &.mat-focused .mat-form-field-label{
+      color: $custom-red !important;
+  }
+}
+
+
+.red-button {
+  background-color: $custom-red !important;
+  color: white;
+  font-weight: 800;
+}
+
+.round-button {
+  border-radius: 44px !important;
+}

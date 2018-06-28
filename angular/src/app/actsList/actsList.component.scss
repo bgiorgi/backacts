@@ -1,0 +1,24 @@
+.act-page-container {
+  margin-left: 150px;
+  margin-top: 60px;
+
+  h2 {
+    font-size: 33px;
+    font-weight: 800;
+  }
+}
+
+.act-list {
+
+}
+
+@media screen and (max-width: 1000px) {
+  .act-page-container {
+    margin: 0;
+    padding: 5px;
+  }
+
+  .logo-img {
+    display: none;
+  }
+}
