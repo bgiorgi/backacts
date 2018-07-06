@@ -1,101 +1,71 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="edit-profile-container">
-  <img src="../../assets/img/logo-with-red-bg.png" alt="" class="logo-img">
-    <mat-card >
-      <form>
-        <div class="profile-header">
-          <mat-icon>account_circle</mat-icon>
+  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-logo"></a>
+  <mat-card>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="profile-header">
+        <div *ngIf="!imageUploadMode">
+          <p *ngIf="!profile.avatar">
+            <mat-icon>account_circle</mat-icon>
+          </p>
+          <p *ngIf="profile.avatar"><img [src]="storageLink+'/'+profile.avatar" style="height:100px"></p>
+          <a (click)="imageUploadMode=true" class="c-pointer"><small class="gray-text">Upload profile image</small></a>
           <p><b>@Joel</b></p>
         </div>
 
-        <div class="tag-wrapper">
-          <mat-chip-list>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip color="primary" selected="true">#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
-            <mat-chip>#Chip</mat-chip>
+        <div *ngIf="imageUploadMode">
+          <div class="image-drop-place">
+            <label for="file-input" align="center" class="c-pointer">
+        <div class="image-upload">
+                  <p>{{ selectedImage?.name }}</p>
+                  <mat-icon>cloud_upload</mat-icon>
 
-          </mat-chip-list>
+
+
         </div>
-        <p class="small-hint">Choose some of your interest</p>
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Date of birth">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-hint>Add your age to see relevant content</mat-hint>
-        </mat-form-field>
-
-        <mat-checkbox>Alcohol</mat-checkbox>
-
-        <mat-checkbox>Food</mat-checkbox>
-
-        <mat-checkbox>Notification for bookmarks</mat-checkbox>
-
-        <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="Email">
-          <mat-label>Email</mat-label>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="Edit password">
-          <mat-label>Edit password</mat-label>
-        </mat-form-field>
-
-        <p class="grey-link">About</p>
-        <p class="grey-link">Terms</p>
-        <p class="grey-link">Privacy</p>
-        <p class="grey-link">Feedback</p>
-        <p class="grey-link">Logout</p>
+        <p>Main Image</p>
+        <p>To select file click here</p>
+            </label>
+          </div>
+          <p>For the best results upload a high rex, no text, fresh, clean image</p>
 
 
-        <button mat-button class="red-button round-button">Submit</button>
+          <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
+        </div>
+
+      </div>
+      <app-tag-input [tags]="profile.tags" (onOutputTags)="outputTags($event)"></app-tag-input>
+      <p class="small-hint">Choose some of your interest</p>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="birth_date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint>Add your age to see relevant content</mat-hint>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="alcohol">Alcohol</mat-checkbox>
+
+      <mat-checkbox formControlName="food">Food</mat-checkbox>
+
+      <mat-checkbox formControlName="email_notifications">Notification for bookmarks</mat-checkbox>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <input matInput placeholder="Email" formControlName="email" type="email" required>
+        <mat-label>Email</mat-label>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <input matInput placeholder="Edit password" type="password" formControlName="password">
+        <mat-label>Edit password</mat-label>
+      </mat-form-field>
+
+
+
+
+      <button mat-button class="red-button round-button" type="submit" [disabled]="profileForm.status=='INVALID'">{{ !profileUpdating ? 'update' : 'updating...' }}</button>
 
     </form>
-    </mat-card>
+
+  </mat-card>
 </div>
-
-
-
-

@@ -31,7 +31,11 @@ class Event extends Resource
                 'ticket_link' => $this->ticket_link,
                 'description' => $this->description,
                 'image' => $this->image,
-                'tags' => $this->tags
+                'tags' => $this->tags,
+                'user' => $this->user,
+                'location' => $this->location,
+                'distance' => $this->distance,
+                'is_bookmarked' => $this->is_bookmarked,
                 ];
     }
 }

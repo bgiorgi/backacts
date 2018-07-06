@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://dev-backacts-badza.c9users.io:8082'
+  apiUrl: 'https://dev-backacts-badza.c9users.io:8082',
+  webUrl: 'http://backacts.com'
 };
 
 /*

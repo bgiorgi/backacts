@@ -1,6 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^(.*)$ public/$1 [L]
+
 </IfModule>
 <ifModule mod_gzip.c>
 mod_gzip_on Yes
@@ -42,5 +43,4 @@ ExpiresDefault "access 30 days"
 ## EXPIRES CACHING ##
 
 php_value display_errors 1
-
 

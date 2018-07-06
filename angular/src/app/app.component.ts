@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './shared/user.service';
 
 
 @Component({
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  
+  constructor(private userService: UserService) {
+            // get user info and save in local storage
+        this.userService.getUserInfo().subscribe((data:any) => {
+          // save user information in observable
+          this.userService.changeCurrentUser(data);
+        });    
+  }
 }
 

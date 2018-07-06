@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';  
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule } from '@angular/router';
+
 
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -14,6 +17,8 @@ import { UniqueActComponent } from './uniqueAct.component';
     UniqueActComponent
   ],
   imports: [
+    CommonModule,
+    BrowserModule,
     RouterModule,
     MatCardModule,
     MatIconModule,

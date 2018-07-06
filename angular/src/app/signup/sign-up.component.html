@@ -1,20 +1,22 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="log-in-wrapper">
-  <img src="../../assets/img/logo.png" alt="" class="top-logo">
+  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-logo"></a>
   <p class="login">Sign Up</p>
   <p>The Book of Acts is completely free to use.</p>
 
 
-  <form class="login-form" #signUpForm="ngForm" (ngSubmit)="onSubmit(username.value,email.value, password.value, passwordConfirm.value)">
+  <form class="login-form" #signUpForm="ngForm" (ngSubmit)="onSubmit(username.value,email.value, password.value, password_confirmation.value)">
     <mat-form-field appearance="outline" class="red-input">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="Username" #username required>
+      <input matInput placeholder="Username" #username required [(ngModel)]="model.username" name="username">
+       <mat-error  [hidden]="username.valid || username.pristine"><small>Username is <strong>required</strong></small></mat-error>
+       <mat-hint *ngIf="responseErrors?.username"><small class="red-text">{{ responseErrors?.username[0] }}</small></mat-hint>
     </mat-form-field>
     <br>
-
     <mat-form-field appearance="outline" class="red-input">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="Email" type="email" #email required>
+      <input matInput placeholder="Email" type="email" #email required [(ngModel)]="model.email" name="email">
+      <mat-hint *ngIf="responseErrors?.email"><small class="red-text">{{ responseErrors?.email[0] }}</small></mat-hint>      
     </mat-form-field>
 
     <br>
@@ -22,19 +24,22 @@
     <div class="inline-input-wrapper">
       <mat-form-field appearance="outline" class="red-input">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="password" type="password" #password required>
+        <input matInput placeholder="password" type="password" #password required [(ngModel)]="model.password" name="password">
+        <mat-hint *ngIf="responseErrors?.password"><small class="red-text">{{ responseErrors?.password[0] }}</small></mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="red-input">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="password" type="password" #passwordConfirm required>
+        <input matInput placeholder="password" type="password" #password_confirmation required [(ngModel)]="model.password_confirmation" name="password_confirmation">
       </mat-form-field>
+              
     </div>
 
     <br>
-    <p>By joining you agree to our <span class="grey-link">Terms</span> and<span class="grey-link"> Privacy policy</span></p>
-    <button mat-button type="submit" class="red-button" [disabled]="signedUp">Sign Up</button>
+    <!--<p>By joining you agree to our <span class="grey-link">Terms</span> and<span class="grey-link"> Privacy policy</span></p>-->
+    <button mat-button type="submit" class="red-button" [disabled]="signedUp || !signUpForm.form.valid">Sign Up</button>
   </form>
+
   <p *ngIf="!signedUp" class="no-account">Have account?</p>
   <p class="text-link" [routerLink]="['/log-in']">Login</p>
 

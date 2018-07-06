@@ -3,6 +3,7 @@ import { SignUpService } from './sign-up.service';
 import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 
+  
 
 
 @Component({
@@ -13,13 +14,24 @@ import { Router } from '@angular/router';
 
 export class SignUpComponent {
   
+
+  
+  responseErrors:any;
+  
+  
   signedUp = false;
-  isSignupError = false;
+  // form ngModels
+  model:any = {
+    username: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+  };
   
-  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router) {}
+  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router) {  }
   
-     onSubmit(username, email, password, passwordConfirm) {
-      this.signUpService.signUp(username, email, password, passwordConfirm).subscribe((data:any)=>{
+     onSubmit(username, email, password, password_confirmation) {
+      this.signUpService.signUp(username, email, password, password_confirmation).subscribe((data:any)=>{
         this.signedUp = true;
         this.snackBar.open('Registration was successful',null,{
           duration:3000
@@ -34,9 +46,9 @@ export class SignUpComponent {
 
         
       },
-      (Err: Response)=>{
-        this.isSignupError = true;
-        this.snackBar.open('There was an error while registration');
+      (Err:any)=>{
+        this.responseErrors = Err.error.errors;
+        this.snackBar.open('There was an error while registration, please check the fields',null,{duration:4000});
       });
     }
     

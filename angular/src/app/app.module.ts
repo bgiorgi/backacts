@@ -20,6 +20,10 @@ import { MenuModule } from './core/components/menu/menu.module';
 import { AppComponent } from './app.component';
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -42,7 +46,8 @@ import { AppComponent } from './app.component';
     MenuModule
 
   ],
-  providers: [],
+  providers: [
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

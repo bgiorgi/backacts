@@ -11,12 +11,12 @@ export class SignUpService {
   constructor(private http: HttpClient) { }
   
   
-  signUp(username, email, password, passwordConfirm) {
+  signUp(username, email, password, password_confirmation) {
     let params = {
       username: username,
       email: email,
       password: password,
-      passwordConfirm: passwordConfirm
+      password_confirmation: password_confirmation
     }
     
     return this.http.post(environment.apiUrl+'/api/user/sign-up',params);

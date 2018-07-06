@@ -208,7 +208,8 @@ $colors: (
   black,
   gray,
   lightgray,
-  red
+  red,
+  green
 ) !default;
 
 
@@ -325,3 +326,6 @@ $colors: (
   display:inline;
 }
 
+.c-pointer {
+  cursor: pointer;
+}

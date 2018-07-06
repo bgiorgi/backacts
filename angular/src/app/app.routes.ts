@@ -8,13 +8,18 @@ import { UniqueActComponent } from './uniqueAct/uniqueAct.component';
 import { AddActComponent } from './addAct/addAct.component';
 import { EditProfileComponent } from './editProfile/editProfile.component';
 
+// auth guard
+import { AuthGuard } from './auth.guard';
+
 export const appRoutes: Routes = [
-  { path: '', component: ActsListComponent, pathMatch: 'full' },
+  { path: '', component: ActsListComponent, data: { actsType: 'all' } },
+  { path: 'acts/bookmarked', component: ActsListComponent, data: { actsType: 'bookmarked' }, canActivate: [AuthGuard]},
+  { path: 'acts/uploads', component: ActsListComponent, data: { actsType: 'uploads' }, canActivate: [AuthGuard]},
   { path: 'log-in', component: LogInComponent, pathMatch: 'full'  },
   { path: 'sign-up', component: SignUpComponent, pathMatch: 'full'  },
   { path: 'acts', component: ActsListComponent, pathMatch: 'full'  },
-  { path: 'u-act', component: UniqueActComponent, pathMatch: 'full'  },
-  { path: 'add-act', component: AddActComponent, pathMatch: 'full'  },
-  { path: 'edit-profile', component: EditProfileComponent, pathMatch: 'full'  },
+  { path: 'events/:slug', component: UniqueActComponent, pathMatch: 'full'},
+  { path: 'add-act', component: AddActComponent, pathMatch: 'full',canActivate: [AuthGuard]  },
+  { path: 'edit-profile', component: EditProfileComponent, pathMatch: 'full',canActivate: [AuthGuard]  },
   { path: '**', component: ActsListComponent },
 ];

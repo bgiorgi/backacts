@@ -16,10 +16,13 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+// interceptor handler
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 
 
 
 import { AddActComponent } from './addAct.component';
+
 
 
 @NgModule({

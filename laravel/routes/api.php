@@ -13,15 +13,54 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->post('events/add', 'Api\EventController@Add');
 
 
+// sign up
 Route::post('user/sign-up', 'Api\UserController@Signup');
 
+// events list
+Route::get('events', 'Api\EventController@Search');
 
-Route::get('events', 'Api\EventController@All');
-Route::get('user/{id}', 'Api\UserController@Single');
+// event
+Route::get('event/{slug}', 'Api\EventController@Single');
+
+
+
+Route::group(['middleware' => 'auth:api'], function() {
+
+    
+    // event image upload
+    Route::post('upload-image','Api\UploadController@UploadImage');
+    
+    
+    // add event
+    Route::post('events/add', 'Api\EventController@Add');
+    
+            
+    // Google places autocomplete
+    Route::get('google-places/autocomplete', 'Api\GooglePlacesController@Autocomplete');
+
+    // authorized user data
+    Route::get('user', function (Request $request) {
+        return $request->user();
+    });
+    
+    // get profile info
+    Route::get('user/get-profile-info', 'Api\UserController@GetProfileInfo');
+    
+    // update profile
+    Route::post('user/update-profile', 'Api\UserController@UpdateProfile');
+    
+    // check bookmarks
+    Route::get('check-bookmarks','Api\BookmarkController@CheckBookmarks');
+    
+    // toggle bookmark
+    Route::post('toggle-bookmark', 'Api\BookmarkController@ToggleBookmark');    
+    
+    // user bookmarks
+    Route::get('user-bookmarked-events','Api\UserEventsController@UserBookmarks');    
+    
+    // user uploads
+    Route::get('user-uploaded-events','Api\UserEventsController@UserUploads');
+    
+});

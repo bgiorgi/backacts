@@ -1,12 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="add-act-container">
-  <img src="../../assets/img/logo-with-red-bg.png" alt="" class="logo-img">
+  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-logo"></a>
   <mat-card>
     <form [formGroup]="actForm" (ngSubmit)="onSubmit()">
       <h1 class="custom-red-color">Add an Act</h1>
       <mat-form-field appearance="outline" class="red-input">
-        <mat-label>Title</mat-label>
+        <mat-label>Title *</mat-label>
         <input matInput placeholder="Title" formControlName="title">
+       <mat-hint *ngIf="responseErrors?.title"><small class="red-text">{{ responseErrors?.title[0] }}</small></mat-hint> 
       </mat-form-field>
       <br>
 
@@ -14,15 +15,17 @@
       <div class="date-time-row">
         <mat-form-field appearance="outline" class="red-input">
           <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date">
+       <mat-hint *ngIf="responseErrors?.date"><small class="red-text">{{ responseErrors?.date[0] }}</small></mat-hint>          
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-label>Date</mat-label>
+          <mat-label>Date *</mat-label>
         </mat-form-field>
 
 
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="Time" type="time" formControlName="time">
-          <mat-label>Time</mat-label>
+          <input matInput placeholder="Time"  type="time" formControlName="time">
+                 <mat-hint *ngIf="responseErrors?.time"><small class="red-text">{{ responseErrors?.time[0] }}</small></mat-hint>          
+          <mat-label>Time *</mat-label>
         </mat-form-field>
 
 
@@ -30,30 +33,33 @@
 
       <div class="form-row">
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput type="number" placeholder="Duration" formControlName="duration">
-          <mat-hint>Decimal points okay</mat-hint>
+          <input matInput type="number" placeholder="Duration" formControlName="duration_hours">
+          <mat-hint *ngIf="responseErrors?.duration_hours"><small class="red-text">{{ responseErrors?.duration_hours[0] }}</small></mat-hint> 
+          <mat-hint *ngIf="!responseErrors?.duration_hours">Decimal points okay</mat-hint>
         </mat-form-field> Hour(s)
       </div>
 
 
       <mat-form-field appearance="outline" class="red-input">
-        <input matInput placeholder="Location" [formControl]="myControl" [matAutocomplete]="auto" value="ChIJN1t_tDeuEmsRUsoyG83frY4" formControlName="google_place_id">
-        <mat-autocomplete #auto="matAutocomplete">
+        <input matInput placeholder="Location" [matAutocomplete]="auto" value="ChIJN1t_tDeuEmsRUsoyG83frY4" formControlName="google_place">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{ option }}
+            {{ option.description }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <p class="gray-text text-right p-0 m-0 mb-4"><small>Places by</small>&nbsp;<img src="/assets/img/google_logo.png"></p>
 
 
 
 
       <div class="form-row">
-        www.
+        
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="Link (Optional)" formControlName="link">
-          <mat-label>Link (Optional)</mat-label>
-          <mat-hint>Submit a link that conveys what will be happening</mat-hint>
+          <input matInput  value="http://" formControlName="link">
+                 <mat-hint *ngIf="responseErrors?.link"><small class="red-text">{{ responseErrors?.link[0] }}</small></mat-hint>          
+          <mat-label>External link</mat-label>
+          <mat-hint *ngIf="!responseErrors?.link">Submit a link that conveys what will be happening</mat-hint>
         </mat-form-field>
       </div>
 
@@ -68,8 +74,9 @@
 
       <div class="form-row age-wrapper">
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput type="number"  placeholder="Age" formControlName="age">
-          <mat-label>Age</mat-label>
+          <input matInput type="number" placeholder="Min Age" formControlName="min_age">
+                 <mat-hint *ngIf="responseErrors?.min_age"><small class="red-text">{{ responseErrors?.min_age[0] }}</small></mat-hint>          
+          <mat-label>Min Age</mat-label>
         </mat-form-field>
         <mat-checkbox formControlName="alcohol">Alcohol</mat-checkbox>
         <mat-checkbox formControlName="food">Food</mat-checkbox>
@@ -79,8 +86,7 @@
       <div class="form-row price-row">
         <mat-form-field>
           <mat-select placeholder="Price" #price>
-            <mat-option>Free</mat-option>
-            <mat-option>Non Free</mat-option>
+            <mat-option *ngFor="let priceType of priceTypes">{{ priceType }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -88,14 +94,15 @@
           $
           <mat-form-field appearance="outline" class="red-input">
             <input matInput placeholder="Amount" formControlName="price_amount">
+                   <mat-hint *ngIf="responseErrors?.price_amount"><small class="red-text">{{ responseErrors?.price_amount[0] }}</small></mat-hint>          
             <mat-label>Amount</mat-label>
           </mat-form-field>
         </div>
 
         <mat-form-field>
-          <mat-select placeholder="Method"  formControlName="price_method">
-            <mat-option *ngFor="let method of method" [value]="method.value">
-              {{ method.name }}
+          <mat-select placeholder="Method" formControlName="price_method">
+            <mat-option *ngFor="let priceMethod of priceMethods" [value]="priceMethod.value">
+              {{ priceMethod.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -103,11 +110,10 @@
 
 
       <div class="form-row">
-        www.
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="Ticket Purchase Link" formControlName="ticket_link">
+          <input matInput value="http://" formControlName="ticket_link">
+                 <mat-hint *ngIf="responseErrors?.ticket_link"><small class="red-text">{{ responseErrors?.ticket_link[0] }}</small></mat-hint>          
           <mat-label>Ticket Purchase Link</mat-label>
-          <mat-hint>wiil bu displayed, when method3 is chosen</mat-hint>
         </mat-form-field>
       </div>
 
@@ -118,26 +124,29 @@
       </mat-form-field>
 
       <div class="image-drop-place">
+        <label for="file-input" align="center" class="c-pointer">
         <div class="image-upload">
-          <label for="file-input">
+                  <p>{{ selectedImage?.name }}</p>
                   <mat-icon>cloud_upload</mat-icon>
-    </label>
 
-          <input id="file-input" type="file" />
+
+
         </div>
 
         <p>Main Image</p>
         <p>To select file click here</p>
+            </label>
       </div>
+             <mat-hint *ngIf="responseErrors?.image"><small class="red-text">{{ responseErrors?.image[0] }}</small></mat-hint>          
+
       <p>For the best results upload a high rex, no text, fresh, clean image</p>
 
 
+      <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
 
 
-
-      <button mat-button class="red-button round-button" type="submit" [disabled]="actAdded">Submit</button>
+      <button mat-button class="red-button round-button" type="submit">Submit</button>
 
     </form>
-    <p>form value: {{ actForm.value | json }}</p>
   </mat-card>
 </div>
