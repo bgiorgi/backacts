@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -14,6 +14,8 @@ import { SearchFormService } from '../../../shared/search-form.service'; // to s
 
 export class MenuComponent implements OnInit {
   
+  @ViewChild('picker') picker;
+  
   @Input() actsType;
   
 
@@ -22,6 +24,7 @@ export class MenuComponent implements OnInit {
   logged:boolean = false;
   currentUser:any;
   coords:any;
+  datePickerPristine:boolean = true;
 
   
   
@@ -103,5 +106,15 @@ export class MenuComponent implements OnInit {
     const background = document.getElementsByClassName('dark-background')[0];
     background.classList.toggle('shown');
   }  
+  
+  
+  
+  openPickerPristine() {
+    if(this.datePickerPristine==true) {
+      this.datePickerPristine = false;
+      this.picker.open();
+    }
+  }
+  
   
 }

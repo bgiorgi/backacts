@@ -32,30 +32,35 @@ Route::group(['middleware' => 'auth:api'], function() {
     // event image upload
     Route::post('upload-image','Api\UploadController@UploadImage');
     
-    
     // add event
     Route::post('events/add', 'Api\EventController@Add');
-    
             
     // Google places autocomplete
     Route::get('google-places/autocomplete', 'Api\GooglePlacesController@Autocomplete');
-
-    // authorized user data
+    
+    // authorized user data (basically for header)
     Route::get('user', function (Request $request) {
         return $request->user();
     });
     
+    // edit profile
     // get profile info
     Route::get('user/get-profile-info', 'Api\UserController@GetProfileInfo');
     
     // update profile
     Route::post('user/update-profile', 'Api\UserController@UpdateProfile');
     
+    // popular tags (for edit profile)
+    Route::get('profile-popular-tags','Api\UserController@ProfilePopularTags');
+    
     // check bookmarks
     Route::get('check-bookmarks','Api\BookmarkController@CheckBookmarks');
     
     // toggle bookmark
     Route::post('toggle-bookmark', 'Api\BookmarkController@ToggleBookmark');    
+    
+    // user interests
+    Route::get('user-interested-events','Api\UserEventsController@UserInterests');    
     
     // user bookmarks
     Route::get('user-bookmarked-events','Api\UserEventsController@UserBookmarks');    

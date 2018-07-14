@@ -1,0 +1,8 @@
+<div class="tag-wrapper">
+  <mat-chip-list>
+    <mat-chip *ngFor="let popularTag of popularTags?.data" [selected]="selected(popularTag.id)" (click)="toggleTag(popularTag.id)">#{{ popularTag.tag.title }}</mat-chip>
+
+  </mat-chip-list>
+</div>
+<p class="small-hint">Choose some of your interest</p>
+              

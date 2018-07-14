@@ -1,9 +1,16 @@
 @import '_utilities';
 
+html {
+
+}
+
 body {
   margin: 0;
-  background-image: url('./assets/img/bg.png');
   font-family: "Helvetica Neue";
+    background-image: url(/assets/img/bg.png);
+    height: 100%;
+    background-attachment: fixed;
+    background-repeat: repeat-x;
 }
 
 h1,

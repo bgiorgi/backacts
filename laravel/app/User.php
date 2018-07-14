@@ -16,7 +16,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username'
     ];
 
     /**
@@ -27,6 +27,10 @@ class User extends \TCG\Voyager\Models\User
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function findForPassport($identifier ){
+        return $this->orWhere('email',$identifier)->orWhere('username',$identifier)->first();
+    }
     
     public function preferences() {
         return $this->hasOne('App\UserPreference');

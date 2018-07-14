@@ -35,8 +35,9 @@
         </div>
 
       </div>
-      <app-tag-input [tags]="profile.tags" (onOutputTags)="outputTags($event)"></app-tag-input>
-      <p class="small-hint">Choose some of your interest</p>
+
+
+      
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="birth_date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

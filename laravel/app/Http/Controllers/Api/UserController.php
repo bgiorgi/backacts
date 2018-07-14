@@ -13,6 +13,8 @@ use App\Http\Resources\User as UserResource;
 use Auth;
 use App\Http\Requests\RegisterUser;
 use Response;
+use App\Http\Resources\EventTag as EventTagResource;
+use App\EventTag;
 
 class UserController extends Controller
 {
@@ -64,9 +66,7 @@ class UserController extends Controller
     
     
     public static function Signup(RegisterUser $request) {
-        
 
-        
         $user = new User;
         $user->username = $request->username;
         $user->email = $request->email;
@@ -75,6 +75,14 @@ class UserController extends Controller
         
         return Response::json('success',200);
     }
+    
+    
+    // get popular tags from events
+    public static function ProfilePopularTags() {
+        $popularTags = EventTag::selectRaw('*,count(tag_id) as tag_count')->groupBy('tag_id')->orderBy('tag_count','desc')->limit(20)->get();
+        return EventTagResource::collection($popularTags);
+    }
+    
     
     
 }

@@ -18,12 +18,14 @@ currentUser = this.userSource.asObservable();
   
         getUserInfo() {
           let access_token = localStorage.getItem('access_token');
-          const httpOptions = {
-            headers: new HttpHeaders({
-              'Authorization': 'Bearer '+access_token
-            })
+          if(access_token) {
+            const httpOptions = {
+              headers: new HttpHeaders({
+                'Authorization': 'Bearer '+access_token
+              })
+            }
+            return this.http.get(environment.apiUrl+'/api/user', httpOptions);
           }
-          return this.http.get(environment.apiUrl+'/api/user', httpOptions);
         }
         
   

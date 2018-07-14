@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material';
 
 import { MenuModule } from '../core/components/menu/menu.module';
 
@@ -35,6 +36,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatTooltipModule,
     MenuModule,
     InfiniteScrollModule
   ],

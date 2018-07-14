@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SignUpService } from './sign-up.service';
 import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
+// import login service, to autenticate users
+import { LoginService } from '../login/log-in.service';
 
   
 
@@ -28,15 +30,20 @@ export class SignUpComponent {
     password_confirmation: ''
   };
   
-  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router) {  }
+  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router, private loginService: LoginService) {  }
   
      onSubmit(username, email, password, password_confirmation) {
       this.signUpService.signUp(username, email, password, password_confirmation).subscribe((data:any)=>{
         this.signedUp = true;
+                
+        // autenticate users and save token in local storage
+        this.loginService.userAuthentication(username, password).subscribe();
+        
         this.snackBar.open('Registration was successful',null,{
           duration:3000
         });
         
+
         
         setTimeout((router: Router) => {
         this.router.navigate(['nextRoute']);

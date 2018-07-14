@@ -34,8 +34,8 @@ export class AddActComponent implements OnInit {
   actAdded = false;
   
   // price selects
-  priceTypes = ['method1', 'Method 2','method3'];
-  priceMethods = [{name: 'method1', value: 'Method 1'}, {name: 'method2', value: 'Method 2'}, {name: 'method3', value: 'Method 3'}];
+  priceTypes = [{value: 'paid', title: 'Paid'}, { value: 'free', title: 'Free' }];
+  priceMethods = ['At the door','Ticketed'];
   
   // options for autocomplete
   options:any = [];
@@ -63,9 +63,16 @@ export class AddActComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.description),
         map(description => description ? this._filter(description) : this.options.slice())
       );
+      
+      
+
+    this.onChanges();
+
   }
   
   
+  
+
   
   displayFn(option?: GooglePlace): string | undefined {
     return option ? option.description : undefined;
@@ -103,14 +110,16 @@ export class AddActComponent implements OnInit {
       min_age:'',
       alcohol:'',
       food:'',
-      price_amount:'',
-      price_method:'',
+      price_type: 'paid',
+      price_method: '',
+      price_amount: '',      
       ticket_link:'',
       description:'',
       image: ''
     });
   }
   
+
 
   
   // when file is selected by user in view
@@ -136,7 +145,19 @@ export class AddActComponent implements OnInit {
   }
 
   
-  
+    onChanges(): void {
+    this.actForm.get('price_type').valueChanges.subscribe(val => {
+      if(val=='free') {
+      this.actForm.get('price_method').disable();
+      this.actForm.get('price_amount').disable();
+      } else {
+      this.actForm.get('price_method').enable();
+      this.actForm.get('price_amount').enable();
+      }
+          });
+
+  }
+
 
 
   

@@ -48,7 +48,7 @@ export class EditProfileComponent {
   createForm() {
     this.profileForm = this.fb.group({
       avatar: this.profile.avatar,
-      tags: this.profile.tags,      
+      tags: [this.profile.tags],      
       birth_date: this.profile.birth_date,
       alcohol: this.profile.preferences.alcohol,
       food: this.profile.preferences.food,
@@ -75,7 +75,7 @@ export class EditProfileComponent {
     this.editProfileService.updateProfile(this.profileForm.value)
     .subscribe(data => {
       this.profileUpdating = false;
-      this.snackBar.open('Profile updated successfully');
+      this.snackBar.open('Profile updated successfully',null,{ duration: 2000});
     })
   }
 

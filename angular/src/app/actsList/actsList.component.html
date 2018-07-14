@@ -2,9 +2,9 @@
 <app-menu [actsType]="actsType"></app-menu>
 <div class="act-page-container">
   <!--<h2>Today</h2>-->
-  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-logo"></a>
-  <div class="act-list">
-    <app-act-display *ngFor="let act of acts?.data" [act]="act"></app-act-display>
+  <a routerLink="/"><img  style="position:absolute" src="../../assets/img/logo.png" alt="" class="top-logo"></a>
+  <div class="act-list" align="center">
+    <app-act-display *ngFor="let act of acts?.data" [act]="act" [dateAlias]="dateAlias(act.date_time)" [dateAliases]="appendAlias(act.date_time)"></app-act-display>
   </div>
 
 
@@ -12,7 +12,7 @@
 
 
 
-<div *ngIf="acts?.data && !acts.data.length"><h1>Nothing Found</h1></div>
+<div *ngIf="acts?.data && !acts.data.length" align="center" class="pt-4 mt-4"><h1 class="mt-4 pt-4">Nothing Found</h1></div>
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"></div>
 <div align="center"  *ngIf="isAppending"><mat-spinner></mat-spinner></div>
 

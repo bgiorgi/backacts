@@ -12,7 +12,9 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
 import { AuthGuard } from './auth.guard';
 
 export const appRoutes: Routes = [
-  { path: '', component: ActsListComponent, data: { actsType: 'all' } },
+  { path: '', redirectTo: '/add-act', pathMatch: 'full' },
+  { path: 'home', redirectTo: '/add-act', pathMatch: 'full' },
+  { path: 'acts/interests', component: ActsListComponent, data: { actsType: 'interests' }, canActivate: [AuthGuard]},
   { path: 'acts/bookmarked', component: ActsListComponent, data: { actsType: 'bookmarked' }, canActivate: [AuthGuard]},
   { path: 'acts/uploads', component: ActsListComponent, data: { actsType: 'uploads' }, canActivate: [AuthGuard]},
   { path: 'log-in', component: LogInComponent, pathMatch: 'full'  },

@@ -4,14 +4,14 @@
   width: 250px;
   height: calc(100vh - 100px);
 
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
 
   padding: 30px;
   overflow-y: auto;
 
-  background-image: url('../../../../assets/img/bg.png');
+  // background-image: url('../../../../assets/img/bg.png');
   opacity: 1;
 
   transition-property: all;
@@ -134,10 +134,10 @@ mat-expansion-panel {
   }
 
   mat-icon {
-    width: 43px;
+    width: 43px!important;
     height: 43px;
     font-size: 43px;
-
+    float:right;
     cursor: pointer;
   }
 
@@ -149,6 +149,7 @@ mat-expansion-panel {
     height: 0;
     opacity: 0;
     position: fixed;
+    background: #f5f1f3;
 
     .black-button {
       margin-top: 10px;

@@ -4,7 +4,7 @@ import { SearchFormService } from '../shared/search-form.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { map, concatMap } from 'rxjs/operators';
-
+import * as moment from 'moment/moment';
 
 
 @Component({
@@ -15,12 +15,14 @@ import { map, concatMap } from 'rxjs/operators';
 
 export class ActsListComponent implements OnInit {
   
-  actsType:any = 'all'; // all, bookmarked, uploads
+  actsType:any = 'all'; // all, interests, bookmarked, uploads
   acts:any;
   currentPage:number = 1;
   isLoading = true;
   isAppending = false;
   params:any;
+  dateAliases:string[] = [];
+  
 
 
   
@@ -36,7 +38,11 @@ export class ActsListComponent implements OnInit {
   
   ngOnInit() {
     // define actsType variable
-    this.route.data.subscribe((data:any) => this.actsType = data.actsType);
+    this.route.data.subscribe((data:any) => {
+      this.actsType = data.actsType;
+      // to avoid page=2 and other parameter submittal
+      this.params = {};
+    });
     this.getActs(this.params);
   }
   
@@ -75,7 +81,35 @@ export class ActsListComponent implements OnInit {
   }   
   
 
-  // subscribe search form changes
+
+  dateAlias(dateTime) {
+    let dateAlias =  moment(dateTime).startOf('day').calendar(null, {
+      sameDay:'[Today]',
+      nextDay: '[Tomorrow]',
+      nextWeek: 'dddd',
+      lastDay: '[Yesterday]',
+      lastWeek: '[Last] dddd',
+      sameElse: 'DD/MM/YYYY'
+    });
+    return dateAlias;
+  }
+  
+
+
+
+  
+  appendAlias(dateTime) {
+    let dateAlias =  moment(dateTime).startOf('day').calendar(null, {
+      sameDay:'[Today]',
+      nextDay: '[Tomorrow]',
+      nextWeek: 'dddd',
+      lastDay: '[Yesterday]',
+      lastWeek: '[Last] dddd',
+      sameElse: 'DD/MM/YYYY'
+    });
+    this.dateAliases.push(dateAlias);
+    return this.dateAliases;
+  }
   
 
   

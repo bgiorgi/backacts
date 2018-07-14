@@ -56,7 +56,7 @@
       <div class="form-row">
         
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput  value="http://" formControlName="link">
+          <input matInput  placeholder="http://" formControlName="link">
                  <mat-hint *ngIf="responseErrors?.link"><small class="red-text">{{ responseErrors?.link[0] }}</small></mat-hint>          
           <mat-label>External link</mat-label>
           <mat-hint *ngIf="!responseErrors?.link">Submit a link that conveys what will be happening</mat-hint>
@@ -85,8 +85,8 @@
 
       <div class="form-row price-row">
         <mat-form-field>
-          <mat-select placeholder="Price" #price>
-            <mat-option *ngFor="let priceType of priceTypes">{{ priceType }}</mat-option>
+          <mat-select placeholder="Price" #priceType  formControlName="price_type">
+            <mat-option *ngFor="let priceType of priceTypes" [value]="priceType.value">{{ priceType.title }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -101,8 +101,8 @@
 
         <mat-form-field>
           <mat-select placeholder="Method" formControlName="price_method">
-            <mat-option *ngFor="let priceMethod of priceMethods" [value]="priceMethod.value">
-              {{ priceMethod.name }}
+            <mat-option *ngFor="let priceMethod of priceMethods">
+              {{ priceMethod }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -111,7 +111,7 @@
 
       <div class="form-row">
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput value="http://" formControlName="ticket_link">
+          <input matInput placeholder="http://" formControlName="ticket_link">
                  <mat-hint *ngIf="responseErrors?.ticket_link"><small class="red-text">{{ responseErrors?.ticket_link[0] }}</small></mat-hint>          
           <mat-label>Ticket Purchase Link</mat-label>
         </mat-form-field>
