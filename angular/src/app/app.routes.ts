@@ -10,7 +10,7 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
 
 // auth guard
 import { AuthGuard } from './auth.guard';
-
+// temp
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/add-act', pathMatch: 'full' },
   { path: 'home', redirectTo: '/add-act', pathMatch: 'full' },
