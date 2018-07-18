@@ -10,9 +10,9 @@
       <mat-icon>reply</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventPreUrl+'/'+act.slug }}" mat-menu-item>Facebook</a>
-        <a target="_blank" href="https://twitter.com/home?status={{ eventPreUrl+'/'+act.slug }}" mat-menu-item>Twitter</a>
-        <a target="_blank" href="https://plus.google.com/share?url={{ eventPreUrl+'/'+act.slug }}" mat-menu-item>Google+</a>
+        <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Facebook</a>
+        <a target="_blank" href="https://twitter.com/home?status={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Twitter</a>
+        <a target="_blank" href="https://plus.google.com/share?url={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Google+</a>
       </mat-menu>
       <button mat-icon-button  matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">
       <mat-icon *ngIf="!act.is_bookmarked" (click)="toggleBookmark()">turned_in_not</mat-icon>

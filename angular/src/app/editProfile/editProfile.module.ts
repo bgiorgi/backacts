@@ -20,14 +20,15 @@ import { MatSnackBarModule } from '@angular/material';
 
 
 import { EditProfileComponent } from './editProfile.component';
-
+import { TagWrapperComponent } from './tag-wrapper/tag-wrapper.component';
 
 
 
 
 @NgModule({
   declarations: [
-    EditProfileComponent
+    EditProfileComponent,
+    TagWrapperComponent
   ],
   imports: [
     RouterModule,
