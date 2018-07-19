@@ -4,6 +4,7 @@
     <span><b>@{{ currentUser.username }}</b></span>
     <mat-icon  [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
     <mat-menu #userMenu="matMenu">
+      <a mat-menu-item [routerLink]="['/edit-profile']">Edit profile</a>      
       <a mat-menu-item routerLink="/log-in">Logout</a>
     </mat-menu>
   </div>

@@ -26,6 +26,7 @@ aliasCount:number;
 eventUrlPre:string;
 storageLink:string;
 logged:boolean = false;
+isBookmarked:boolean;
 
 
 
@@ -36,6 +37,11 @@ logged:boolean = false;
 
 
   ngOnInit() {
+    console.log(this.act);
+    
+    if(this.act.is_bookmarked) this.isBookmarked = true;
+    else this.isBookmarked = false;
+      
     // initialize storage link for photos and eventUrlPre for sharers
     this.storageLink = environment.apiUrl+'/storage'; // for photos
     this.eventUrlPre = environment.webUrl+'/event'; // for sharers
@@ -58,10 +64,10 @@ logged:boolean = false;
       this.snackBar.open('To bookmark event, you need to be logged in', null, { duration: 2000});
     } 
     else {
+      this.isBookmarked = !this.isBookmarked;   
+      console.log('act id'+this.act.id);
       // if user is logged, save or unsave bookmark
-      this.actDisplayService.toggleBookmark(this.act.id).subscribe(data => {
-            this.act.is_bookmarked = !this.act.is_bookmarked;
-      });
+      this.actDisplayService.toggleBookmark(this.act.id).subscribe();
     }
   }
   

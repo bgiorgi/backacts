@@ -40,14 +40,11 @@ class UserController extends Controller
         // use tags
         UserTag::where('user_id',$user->id)->delete();
         if(isset($request->tags) && is_array($request->tags)) {
-                foreach($request->tags as $newTag) {
-                $tagEntry = Tag::where('title',$newTag['title'])->first();
-                if($tagEntry) {
-                    $newUserTag = new UserTag;
-                    $newUserTag->tag_id = $tagEntry->id;
-                    $newUserTag->user_id = $user->id;
-                    $newUserTag->save();
-                }
+                foreach($request->tags as $tag) {
+                $newUserTag = new UserTag;
+                $newUserTag->tag_id = $tag['id'];
+                $newUserTag->user_id = $user->id;
+                $newUserTag->save();
             }
         }   
         

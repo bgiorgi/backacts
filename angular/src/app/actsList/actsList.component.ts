@@ -15,7 +15,7 @@ import * as moment from 'moment/moment';
 
 export class ActsListComponent implements OnInit {
   
-  actsType:any = 'all'; // all, interests, bookmarked, uploads
+  actsType:string; // all, interests, bookmarked, uploads
   acts:any;
   currentPage:number = 1;
   isLoading = true;
@@ -28,27 +28,25 @@ export class ActsListComponent implements OnInit {
   
   
   constructor(private actsListService: ActsListService, private searchFormService: SearchFormService, private route: ActivatedRoute,    public snackBar: MatSnackBar) {
+    
     // get shared search data
     this.searchFormService.currentParams.subscribe(data => {
       this.params = data;
       this.getActs(data);
       });
+      
+      route.data.subscribe(data => this.actsType = data.actsType); // get actsType from routing. all, interests, bookmarked, uploads
   }
   
   
   ngOnInit() {
-    // define actsType variable
-    this.route.data.subscribe((data:any) => {
-      this.actsType = data.actsType;
-      // to avoid page=2 and other parameter submittal
-      this.params = {};
-    });
     this.getActs(this.params);
   }
   
   
   // getacts 
   getActs(params) {
+    console.log('actstype:'+this.actsType+'/actsType');
     return this.actsListService.getActs(params,this.actsType).subscribe(data => {
       this.acts = data;
       });

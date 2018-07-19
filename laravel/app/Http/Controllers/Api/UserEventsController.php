@@ -16,10 +16,12 @@ class UserEventsController extends Controller
 
     public static function UserInterests() {
         $events = Event
-        ::join('event_tag','events.id','=','event_tag.event_id')
+        ::selectRaw('*, events.id')
+        ->join('event_tag','event_tag.event_id','=','events.id')
         ->join('user_tag', function($join) {
-            $join->where('user_tag.user_id',Auth::user()->id);
+            $join->where('user_tag.user_id',Auth::user()->id)->whereRaw('user_tag.tag_id in(event_tag.tag_id)');
         })
+        ->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'))
         ->with('location') 
         ->with('tags')
         ->with('user')
@@ -35,7 +37,7 @@ class UserEventsController extends Controller
     
     public static function UserBookmarks() {
         $events = Event
-        ::selectRaw('*, 1 as is_bookmarked')
+        ::selectRaw('*,events.id, 1 as is_bookmarked')
         ->join('bookmarks',function($join) {
             $join->on('events.id','bookmarks.event_id')->where('bookmarks.user_id',Auth::user()->id);
         })
@@ -50,7 +52,9 @@ class UserEventsController extends Controller
     
     public static function UserUploads() {
         $events = Event
-        ::where('user_id',Auth::user()->id)
+        ::selectRaw('*, events.id')
+        ->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'))
+        ->where('user_id',Auth::user()->id)
         ->with('location') 
         ->with('tags')
         ->with('user')

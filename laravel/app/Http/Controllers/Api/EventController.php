@@ -98,6 +98,7 @@ class EventController extends Controller
             $location->lat =  $googlePlace['result']['geometry']['location']['lat'];
             $location->lng =  $googlePlace['result']['geometry']['location']['lng'];
             $location->name =  $googlePlace['result']['name'];
+            $location->save();
         }
         
 
@@ -124,14 +125,12 @@ class EventController extends Controller
         $tags = explode('#',$request->tags);
         $tags = array_filter($tags);
         foreach($tags as $tagTitle) {
-            echo $tagTitle; echo '<br>';
             $tag = Tag::firstOrCreate(['title'=>$tagTitle]);
             $eventTag = new EventTag;
             $eventTag->event_id = $event->id;
             $eventTag->tag_id = $tag->id;
             $eventTag->save();
         }
-        die;
         
         return Response::json('success', 200); 
         
