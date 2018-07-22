@@ -2,9 +2,9 @@
 <div class="menu-wrapper">
   <div class="menu-header" *ngIf="logged">
     <span><b>@{{ currentUser.username }}</b></span>
-    <mat-icon  [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
+    <mat-icon [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
     <mat-menu #userMenu="matMenu">
-      <a mat-menu-item [routerLink]="['/edit-profile']">Edit profile</a>      
+      <a mat-menu-item [routerLink]="['/edit-profile']">Edit profile</a>
       <a mat-menu-item routerLink="/log-in">Logout</a>
     </mat-menu>
   </div>
@@ -13,7 +13,7 @@
   </div>
   <div class="menu-content">
 
-    
+
     <button mat-button [matMenuTriggerFor]="menu" class="my-4">{{ actsType == 'all' ? 'All events' : actsType == 'interests' ? 'My interests' : actsType == 'bookmarked' ? 'My bookmarks' : 'My uploads' }} <mat-icon>unfold_more</mat-icon></button>
     <mat-menu #menu="matMenu">
       <a mat-menu-item routerLink="/">All events</a>
@@ -22,7 +22,7 @@
       <a mat-menu-item routerLink="/acts/uploads" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">My uploads</a>
     </mat-menu>
 
-    <form action="" [formGroup]="searchForm">
+    <form action="" [formGroup]="searchForm" [ngClass]="{'disableDiv': formDisabled}">
       <mat-form-field appearance="outline" class="red-input">
         <span matPrefix> <mat-icon>search</mat-icon>  &nbsp; &nbsp;</span>
         <mat-label>Search</mat-label>
@@ -34,7 +34,7 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title (click)="openPickerPristine()">
-                <mat-icon>calendar_today</mat-icon> {{ date.value ? (date.value | date) : 'Date' }}
+                <mat-icon>calendar_today</mat-icon> <span [ngClass]="{'gray-text':formDisabled}">{{ date.value ? (date.value | date) : 'Date' }}</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <p>
@@ -48,12 +48,12 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>near_me</mat-icon> {{ distance.value ? distance.value+' km' : 'Distance' }}
+                <mat-icon>near_me</mat-icon> <span [ngClass]="{'gray-text':formDisabled}">{{ distance.value ? distance.value+' km' : 'Distance' }}</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            
 
-              <p>
+
+            <p>
               <mat-slider class="example-margin" [max]="50" [min]="1" thumbLabel="true" #distance formControlName="distance" (click)="enableBrowserLocation()">
               </mat-slider> {{ distance.value }} km
             </p>
@@ -62,7 +62,7 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>attach_money</mat-icon> {{ price_max?.value ? price_max.value+' km' : 'Max price' }} 
+                <mat-icon>attach_money</mat-icon> <span [ngClass]="{'gray-text':formDisabled}">{{ price_max?.value ? price_max.value+' km' : 'Max price' }}</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <p>
@@ -84,15 +84,19 @@
           <!--      </mat-radio-button>-->
           <!--      <br>-->
           <!--      <br>-->
-                <!--<mat-radio-button value="distance" (click)="enableBrowserLocation()">Nearest-->
+          <!--<mat-radio-button value="distance" (click)="enableBrowserLocation()">Nearest-->
           <!--      <mat-radio-button value="price">Price-->
           <!--      </mat-radio-button>-->
           <!--    </mat-radio-group>-->
           <!--  </p>-->
           <!--</mat-expansion-panel>-->
-        </mat-accordion>
 
+        </mat-accordion>
+        <p align="center">
+          <button mat-button *ngIf="!searchForm.pristine" (click)="searchForm.reset()" class="reset-button" [ngClass]="{'gray-text':formDisabled}">Reset Form</button> 
+        </p>
       </div>
+
 
     </form>
   </div>

@@ -21,7 +21,7 @@ class UserController extends Controller
     
     // get profile info
     public static function GetProfileInfo() {
-        $user = Auth::user()->with('tags')->with('preferences')->first();
+        $user = User::with('preferences')->find(Auth::user()->id);
         return new UserResource($user);
     }
     
@@ -42,7 +42,7 @@ class UserController extends Controller
         if(isset($request->tags) && is_array($request->tags)) {
                 foreach($request->tags as $tag) {
                 $newUserTag = new UserTag;
-                $newUserTag->tag_id = $tag['id'];
+                $newUserTag->tag_id = $tag['tag_id']; 
                 $newUserTag->user_id = $user->id;
                 $newUserTag->save();
             }
@@ -76,8 +76,8 @@ class UserController extends Controller
     
     // get popular tags from events
     public static function ProfilePopularTags() {
-        $popularTags = EventTag::selectRaw('*,count(tag_id) as tag_count')->groupBy('tag_id')->orderBy('tag_count','desc')->limit(20)->get();
-        return EventTagResource::collection($popularTags);
+        $popularTags = EventTag::selectRaw('tag_id,count(tag_id) as tag_count,(select title from tags where id=event_tag.tag_id) as title,(select 1 from user_tag where tag_id=event_tag.tag_id and user_id='.Auth::user()->id.') as is_user_tag')->groupBy('tag_id')->orderBy('tag_count','desc')->limit(20)->get();
+        return Response::json($popularTags,200);
     }
     
     

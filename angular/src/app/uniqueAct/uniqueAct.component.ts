@@ -19,8 +19,6 @@ export class UniqueActComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap
       .subscribe((data:any) => this.getAct(data.params.slug));
-      
-
   }
   
   

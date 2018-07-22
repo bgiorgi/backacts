@@ -69,3 +69,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('user-uploaded-events','Api\UserEventsController@UserUploads');
     
 });
+
+
+// static page
+Route::get('get-static-page','Api\StaticPageController@Single');

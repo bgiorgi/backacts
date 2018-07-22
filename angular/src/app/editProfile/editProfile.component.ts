@@ -84,8 +84,10 @@ export class EditProfileComponent {
 
   // when file is selected by user in view
   onFileChanged(event) {
+    this.uploadedImage = null;
     this.selectedImage = event.target.files[0];
     this.editProfileService.uploadImage(this.selectedImage).subscribe(data => {
+      this.uploadedImage = data;
       this.profile.avatar = data;
       this.profileForm.patchValue({'avatar': data});
       });

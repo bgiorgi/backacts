@@ -26,7 +26,7 @@ export class LogInComponent implements OnInit {
   
    onSubmit(username, password) {
       this.loginService.userAuthentication(username, password).subscribe((data:any)=>{
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       },
       (Err:any)=>{
         let errorMessage;

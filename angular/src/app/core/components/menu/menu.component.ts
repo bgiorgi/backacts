@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   currentUser:any;
   coords:any;
   datePickerPristine:boolean = true;
+  formDisabled:boolean;
 
   
   
@@ -43,6 +44,10 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.valueChanges();
+    if(this.actsType!=='all' && this.actsType!='interests') {
+      // this.searchForm.disable();
+      this.formDisabled = true;
+    }
   }
   
   
@@ -71,7 +76,6 @@ export class MenuComponent implements OnInit {
       if(values.date) params.date = moment(values.date).format('YYYY-MM-DD');
       if(values.distance) params.distance = values.distance;
       if(values.price_max) params.price_max = values.price_max;
-      if(values.sort_by) params.sort_by = values.sort_by;
 
       if(this.coords) {
       params.lat = this.coords.latitude;

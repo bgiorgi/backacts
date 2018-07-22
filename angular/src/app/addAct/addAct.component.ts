@@ -5,6 +5,7 @@ import {map, startWith} from 'rxjs/operators';
 import { AddActService } from './addAct.service';
 import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 
 export interface GooglePlace {
   description: string,
@@ -19,6 +20,8 @@ export interface GooglePlace {
 })
 
 export class AddActComponent implements OnInit {
+  storageLink:string;
+  
   
   responseErrors:any;
 
@@ -67,6 +70,7 @@ export class AddActComponent implements OnInit {
       
 
     this.onChanges();
+    this.storageLink = environment.apiUrl+'/storage';
 
   }
   
@@ -124,8 +128,12 @@ export class AddActComponent implements OnInit {
   
   // when file is selected by user in view
   onFileChanged(event) {
+    this.uploadedImage = null;    
     this.selectedImage = event.target.files[0];
-    this.addActService.uploadImage(this.selectedImage).subscribe(data => this.actForm.patchValue({image: data}));
+    this.addActService.uploadImage(this.selectedImage).subscribe(data => {
+      this.uploadedImage = data;
+      this.actForm.patchValue({image: data});
+      });
   }
   
   

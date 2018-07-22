@@ -4,7 +4,8 @@ import { SearchFormService } from '../shared/search-form.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { map, concatMap } from 'rxjs/operators';
-import * as moment from 'moment/moment';
+
+
 
 
 @Component({
@@ -21,34 +22,35 @@ export class ActsListComponent implements OnInit {
   isLoading = true;
   isAppending = false;
   params:any;
-  dateAliases:string[] = [];
+  actsLoading:boolean;
+
   
 
 
   
   
   constructor(private actsListService: ActsListService, private searchFormService: SearchFormService, private route: ActivatedRoute,    public snackBar: MatSnackBar) {
-    
-    // get shared search data
-    this.searchFormService.currentParams.subscribe(data => {
-      this.params = data;
-      this.getActs(data);
-      });
-      
       route.data.subscribe(data => this.actsType = data.actsType); // get actsType from routing. all, interests, bookmarked, uploads
   }
   
   
   ngOnInit() {
-    this.getActs(this.params);
+    this.searchFormService.changeCurrentParams({});
+    //get shared search data
+    this.searchFormService.currentParams.subscribe(data => {
+      this.params = data;
+      this.getActs(data);
+    });
+          
   }
   
   
   // getacts 
   getActs(params) {
-    console.log('actstype:'+this.actsType+'/actsType');
+      this.actsLoading = true;    
     return this.actsListService.getActs(params,this.actsType).subscribe(data => {
       this.acts = data;
+      this.actsLoading = false
       });
   }
   
@@ -78,36 +80,6 @@ export class ActsListComponent implements OnInit {
     });
   }   
   
-
-
-  dateAlias(dateTime) {
-    let dateAlias =  moment(dateTime).startOf('day').calendar(null, {
-      sameDay:'[Today]',
-      nextDay: '[Tomorrow]',
-      nextWeek: 'dddd',
-      lastDay: '[Yesterday]',
-      lastWeek: '[Last] dddd',
-      sameElse: 'DD/MM/YYYY'
-    });
-    return dateAlias;
-  }
-  
-
-
-
-  
-  appendAlias(dateTime) {
-    let dateAlias =  moment(dateTime).startOf('day').calendar(null, {
-      sameDay:'[Today]',
-      nextDay: '[Tomorrow]',
-      nextWeek: 'dddd',
-      lastDay: '[Yesterday]',
-      lastWeek: '[Last] dddd',
-      sameElse: 'DD/MM/YYYY'
-    });
-    this.dateAliases.push(dateAlias);
-    return this.dateAliases;
-  }
   
 
   

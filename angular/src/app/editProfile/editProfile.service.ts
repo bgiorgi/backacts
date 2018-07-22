@@ -32,7 +32,7 @@ export class EditProfileService {
     
     
     
-      uploadImage(selectedImage) {
+    uploadImage(selectedImage) {
     let access_token = localStorage.getItem('access_token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -45,6 +45,6 @@ export class EditProfileService {
     return this.http.post(environment.apiUrl+'/api/upload-image',uploadData,httpOptions);
   }
   
-  
+
     
 }

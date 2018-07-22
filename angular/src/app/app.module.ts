@@ -18,6 +18,9 @@ import { EditProfileModule } from './editProfile/editProfile.module';
 import { MenuModule } from './core/components/menu/menu.module';
 
 import { AppComponent } from './app.component';
+import { StaticPageComponent } from './static-page/static-page.component';
+import { ImageUploadComponent } from './addAct/image-upload/image-upload.component';
+import { GooglePlacesComponent } from './addAct/google-places/google-places.component';
 
 
 
@@ -27,7 +30,10 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StaticPageComponent,
+    ImageUploadComponent,
+    GooglePlacesComponent
   ],
   imports: [
     CommonModule,

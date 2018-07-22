@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import {RouterModule } from '@angular/router';
 import {CommonModule} from '@angular/common';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import {MatCardModule} from '@angular/material/card';
@@ -11,6 +12,7 @@ import { MatButtonModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { MenuModule } from '../core/components/menu/menu.module';
 
@@ -30,6 +32,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
   imports: [
     RouterModule,
     CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     MatCardModule,
     MatIconModule,
     MatMenuModule,
@@ -37,6 +41,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatProgressBarModule,
     MenuModule,
     InfiniteScrollModule
   ],

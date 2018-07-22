@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class EventTag extends Resource
+class StaticPage extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,6 @@ class EventTag extends Resource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'event_id' => $this->event_id,
-            'tag_id' => $this->tag_id,
-            'tag' => $this->tag
-            ];
+        return parent::toArray($request);
     }
 }

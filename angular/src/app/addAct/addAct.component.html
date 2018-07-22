@@ -123,21 +123,27 @@
         <mat-hint align="end">{{ description.value.length }} / 256</mat-hint>
       </mat-form-field>
 
-      <div class="image-drop-place">
-        <label for="file-input" align="center" class="c-pointer">
+
+          <div class="image-drop-place">
+            <label for="file-input" align="center" class="c-pointer">
         <div class="image-upload">
-                  <p>{{ selectedImage?.name }}</p>
-                  <mat-icon>cloud_upload</mat-icon>
+         
+         <div *ngIf="selectedImage">
+                  <img *ngIf="uploadedImage" class="uploaded-image" [src]="storageLink+'/'+uploadedImage">
+                  <p *ngIf="selectedImage && !uploadedImage">Image is uploading...</p>
+                  <br>
+                  <p *ngIf="uploadedImage"><small>Change image</small></p>
+                  </div>
 
-
-
+        <div *ngIf="!selectedImage">
+         <mat-icon>cloud_upload</mat-icon>          
+        <p>Profile Image</p>
+        <p>To select image click here</p>
         </div>
-
-        <p>Main Image</p>
-        <p>To select file click here</p>
+        
+                </div>
             </label>
-      </div>
-             <mat-hint *ngIf="responseErrors?.image"><small class="red-text">{{ responseErrors?.image[0] }}</small></mat-hint>          
+          </div>
 
       <p>For the best results upload a high rex, no text, fresh, clean image</p>
 

@@ -70,13 +70,14 @@ form {
 
 .image-drop-place {
   width: 100%;
-  height: 150px;
-
+  min-height: 150px;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
 
   padding-top: 20px;
+  padding-bottom: 20px;
 
   border: 1px solid gray;
   border-radius: 10px;
@@ -93,6 +94,12 @@ form {
   p {
     margin: 0;
   }
+  
+  
+      .uploaded-image {
+      max-width: 200px;
+      max-height: 150px;
+    }
 
 }
 

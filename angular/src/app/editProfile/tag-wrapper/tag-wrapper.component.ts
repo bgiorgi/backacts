@@ -8,10 +8,9 @@ import { TagWrapperService } from './tag-wrapper.service';
 })
 export class TagWrapperComponent implements OnInit {
 
-  @Input() tags;
   @Output() onOutputTags = new EventEmitter();
   popularTags:any;
-
+  
 
   constructor(private tagWrapperService: TagWrapperService) { 
     this.getPopularTags();
@@ -20,37 +19,20 @@ export class TagWrapperComponent implements OnInit {
   ngOnInit() {
   }
   
-  toggleTag(tagId,tagTitle) {
-    console.log(this.tags);
-    let tagItemFound = false;
-    this.tags.forEach((item,index) => {
-      if(item.id==tagId) {
-        this.tags.splice(index,1);
-        delete this.tags[1];
-        tagItemFound = true;  
-        console.log('tags spliced'+index);
-        return false;
-    }
-  });
-  
-    if(!tagItemFound) this.tags.push({ id: tagId, title: tagTitle });
-    this.onOutputTags.emit(this.tags);
-    console.log(this.tags);
-  }
-  
-  
+
+  // get popular tags, from events. backend returns is_user_tag, if tag is also selected previously by user.
   getPopularTags() {
-    this.tagWrapperService.getPopularTags().subscribe((data:any) => this.popularTags = data.data);
+    this.tagWrapperService.getPopularTags().subscribe(data => this.popularTags = data);
   }
   
-  
-  selected(tagId) {
-    let result = false;
-    this.tags.forEach(item => {
-      if(item.id==tagId) result = true;
-    })
-    return result;
+  // when user clicks tag is_user_tag should be toggled
+  toggleTag(i) {
+    this.popularTags[i].is_user_tag = !this.popularTags[i].is_user_tag;
+    // filter just selected tags to send to backend
+    this.onOutputTags.emit(this.popularTags.filter(tag => tag.is_user_tag));
   }
+  
+
   
   
 

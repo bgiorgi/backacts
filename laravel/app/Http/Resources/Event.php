@@ -36,6 +36,28 @@ class Event extends Resource
                 'location' => $this->location,
                 'distance' => $this->distance,
                 'is_bookmarked' => $this->is_bookmarked,
+                'relative_date' => relativeDate($this->date_time)
                 ];
     }
 }
+
+
+    $previousRelativeDate='';
+    function relativeDate($dateTime) {
+        global $previousRelativeDate;
+        
+        $targetTime = strtotime($dateTime);
+        $currentTime = time();
+        $dayDifference = floor(($targetTime-$currentTime)/(24*60*60));
+        switch($dayDifference) {
+            case 0: $relativeDate = 'Today'; break;
+            case 1: $relativeDate = 'Tomorrow'; break;
+            case 2: $relativeDate = '2 days later'; break;
+            case 3: $relativeDate = '3 days later'; break;
+            default: $relativeDate = date('M d',$targetTime);
+        }
+        if($previousRelativeDate!=$relativeDate) {
+            $previousRelativeDate = $relativeDate;
+            return $relativeDate;
+        }
+    }

@@ -1,5 +1,10 @@
 @import '../../../../theme';
 
+
+.disableDiv{
+    pointer-events:none;
+}
+
 .menu-wrapper {
   width: 250px;
   height: calc(100vh - 100px);
@@ -60,6 +65,13 @@ mat-expansion-panel {
     margin-right: 10px;
   }
 }
+
+.reset-button {
+  font-size:.7rem;
+  font-weight:400;
+  color:#5f5f5f !important;
+}
+
 
 .red-button {
   display: block;
@@ -143,7 +155,8 @@ mat-expansion-panel {
 
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1500px) {
+  
   .menu-wrapper {
     //width:0;
     height: 0;

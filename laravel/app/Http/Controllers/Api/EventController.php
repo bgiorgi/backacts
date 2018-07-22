@@ -26,16 +26,9 @@ class EventController extends Controller
         $dayEnd = date('Y:m:d',$strtotime+60*60*24);
         $date = date('Y-m-d',strtotime($request->date));
         
-        $orderBy = $request->order_by ? $request->order_by : 'date_time';
-        
-
         
         $events = Event::
             select('*')
-            // distance
-            ->when($request->lng && $request->lat, function($query) use($request){
-                return $query->addSelect(DB::raw('(select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) ) as distance1  from locations where id=events.location_id  limit 1) AS distance'));
-            })
             //keyword
             ->when($request->keyword, function($query) use($request) {
                 return $query->where('title','like',"%$request->keyword%");
@@ -48,7 +41,7 @@ class EventController extends Controller
             })  
             //price max
             ->when($request->price_max, function($query) use($request) {
-                return $query->where('price_amount','<',$request->price_max);
+                return $query->where('price_amount','<',$request->price_max)->orWhere('price_amount',null);
             })
             // if event is bookmark of current authorized user
             ->when(Auth('api')->user(), function($query) {
@@ -58,11 +51,7 @@ class EventController extends Controller
             ->when($request->lng && $request->lat && $request->distance, function($query) use($request){                   
                     return $query->whereRaw('(select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) is not null AND (select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) < '.$request->distance); 
             })               
-            // order by distance
-            ->when($request->lng && $request->lat && $request->order_by=='distance', function($query) use($request){            
-                    return $query->orderBy('distance','asc');
-            })
-            ->orderBy($orderBy)            
+            ->orderBy('date_time')            
             ->with('location') 
             ->with('tags')
             ->with('user')

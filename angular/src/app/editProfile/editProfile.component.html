@@ -10,34 +10,40 @@
           </p>
           <p *ngIf="profile.avatar"><img [src]="storageLink+'/'+profile.avatar" style="height:100px"></p>
           <a (click)="imageUploadMode=true" class="c-pointer"><small class="gray-text">Upload profile image</small></a>
-          <p><b>@Joel</b></p>
+          <p><b>@{{ profile.username }}</b></p>
         </div>
 
         <div *ngIf="imageUploadMode">
           <div class="image-drop-place">
             <label for="file-input" align="center" class="c-pointer">
         <div class="image-upload">
-                  <p>{{ selectedImage?.name }}</p>
-                  <mat-icon>cloud_upload</mat-icon>
+         
+         <div *ngIf="selectedImage">
+                  <img *ngIf="uploadedImage" class="uploaded-image" [src]="storageLink+'/'+uploadedImage">
+                  <p *ngIf="selectedImage && !uploadedImage">Image is uploading...</p>
+                  <br>
+                  <p *ngIf="uploadedImage"><small>Change image</small></p>
+                  </div>
 
-
-
+        <div *ngIf="!selectedImage">
+         <mat-icon>cloud_upload</mat-icon>          
+        <p>Profile Image</p>
+        <p>To select image click here</p>
         </div>
-
-        <p>Main Image</p>
-        <p>To select file click here</p>
+        
+                </div>
             </label>
           </div>
-          <p>For the best results upload a high rex, no text, fresh, clean image</p>
+          <p>For the best results upload a high res, no text, fresh, clean image</p>
 
 
           <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
         </div>
 
       </div>
-      <app-tag-wrapper [tags]="profile.tags" (onOutputTags)="outputTags($event)"></app-tag-wrapper>
+      <app-tag-wrapper (onOutputTags)="outputTags($event)"></app-tag-wrapper>
 
-      
+
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="birth_date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -62,7 +68,11 @@
       </mat-form-field>
 
 
-
+      <p class="grey-link" routerLink="/about">About</p>
+      <p class="grey-link" routerLink="/terms">Terms</p>
+      <p class="grey-link" routerLink="/privacy">Privacy</p>
+      <p class="grey-link" routerLink="/feedback">Feedback</p>
+      <p class="grey-link" routerLink="/log-in">Logout</p>
 
       <button mat-button class="red-button round-button" type="submit" [disabled]="profileForm.status=='INVALID'">{{ !profileUpdating ? 'update' : 'updating...' }}</button>
 
