@@ -48,7 +48,7 @@ export class EditProfileComponent {
   createForm() {
     this.profileForm = this.fb.group({
       avatar: this.profile.avatar,
-      tags: [this.profile.tags],      
+      tags: '',       
       birth_date: this.profile.birth_date,
       alcohol: this.profile.preferences.alcohol,
       food: this.profile.preferences.food,

@@ -32,8 +32,8 @@
       <div class="accordion-wrapper">
         <mat-accordion>
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title (click)="openPickerPristine()">
+            <mat-expansion-panel-header  (click)="openPickerPristine()">
+              <mat-panel-title>
                 <mat-icon>calendar_today</mat-icon> <span [ngClass]="{'gray-text':formDisabled}">{{ date.value ? (date.value | date) : 'Date' }}</span>
               </mat-panel-title>
             </mat-expansion-panel-header>

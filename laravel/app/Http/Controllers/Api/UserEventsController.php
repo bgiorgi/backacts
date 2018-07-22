@@ -25,7 +25,11 @@ class UserEventsController extends Controller
         
         
         $events = Event
-        ::selectRaw('*, events.id')
+        ::selectRaw('*, events.id, events.user_id')
+        // if event is bookmark of current authorized user
+        ->when(Auth('api')->user(), function($query) {
+            return $query->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'));
+        })          
         ->join('event_tag','event_tag.event_id','=','events.id')
         ->join('user_tag', function($join) {
             $join->where('user_tag.user_id',Auth::user()->id)->whereRaw('user_tag.tag_id in(event_tag.tag_id)');
@@ -43,12 +47,8 @@ class UserEventsController extends Controller
         })  
         //price max
         ->when($request->price_max, function($query) use($request) {
-            return $query->where('price_amount','<',$request->price_max)->orWhere('price_amount',null);
+            return $query->whereRaw('(price_amount < '.$request->price_max.' or price_amount is null)');
         })
-        // if event is bookmark of current authorized user
-        ->when(Auth('api')->user(), function($query) {
-            return $query->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'));
-        })  
         // where distance < ?
         ->when($request->lng && $request->lat && $request->distance, function($query) use($request){                   
                 return $query->whereRaw('(select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) is not null AND (select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) < '.$request->distance); 
@@ -69,7 +69,7 @@ class UserEventsController extends Controller
     
     public static function UserBookmarks() {
         $events = Event
-        ::selectRaw('*,events.id, 1 as is_bookmarked')
+        ::selectRaw('*,events.id, events.user_id, 1 as is_bookmarked')
         ->join('bookmarks',function($join) {
             $join->on('events.id','bookmarks.event_id')->where('bookmarks.user_id',Auth::user()->id);
         })
@@ -85,7 +85,7 @@ class UserEventsController extends Controller
     
     public static function UserUploads() {
         $events = Event
-        ::selectRaw('*, events.id')
+        ::selectRaw('*, events.id, events.user_id')
         ->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'))
         ->where('user_id',Auth::user()->id)
         ->orderBy('date_time')            

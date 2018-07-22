@@ -23,6 +23,7 @@ export class ActsListComponent implements OnInit {
   isAppending = false;
   params:any;
   actsLoading:boolean;
+  searchFormSubscription;
 
   
 
@@ -30,18 +31,25 @@ export class ActsListComponent implements OnInit {
   
   
   constructor(private actsListService: ActsListService, private searchFormService: SearchFormService, private route: ActivatedRoute,    public snackBar: MatSnackBar) {
+      this.actsType = null;
       route.data.subscribe(data => this.actsType = data.actsType); // get actsType from routing. all, interests, bookmarked, uploads
   }
   
   
   ngOnInit() {
-    this.searchFormService.changeCurrentParams({});
+    //this.searchFormService.changeCurrentParams({});
     //get shared search data
-    this.searchFormService.currentParams.subscribe(data => {
+    this.searchFormSubscription = this.searchFormService.currentParams.subscribe(data => {
       this.params = data;
       this.getActs(data);
     });
           
+  }
+  
+  
+  ngOnDestroy(){
+    this.searchFormSubscription.unsubscribe();
+    this.searchFormService.changeCurrentParams({});        
   }
   
   

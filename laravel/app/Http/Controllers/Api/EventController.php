@@ -29,6 +29,14 @@ class EventController extends Controller
         
         $events = Event::
             select('*')
+            // if event is bookmark of current authorized user
+            ->when(Auth('api')->user(), function($query) {
+                return $query->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'));
+            })              
+            // distance
+            ->when($request->lng && $request->lat, function($query) use($request){
+                return $query->addSelect(DB::raw('(select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) ) as distance1  from locations where id=events.location_id  limit 1) AS distance'));
+            })
             //keyword
             ->when($request->keyword, function($query) use($request) {
                 return $query->where('title','like',"%$request->keyword%");
@@ -41,12 +49,8 @@ class EventController extends Controller
             })  
             //price max
             ->when($request->price_max, function($query) use($request) {
-                return $query->where('price_amount','<',$request->price_max)->orWhere('price_amount',null);
+                return $query->whereRaw('(price_amount < '.$request->price_max.' or price_amount is null)');
             })
-            // if event is bookmark of current authorized user
-            ->when(Auth('api')->user(), function($query) {
-                return $query->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'));
-            })  
             // where distance < ?
             ->when($request->lng && $request->lat && $request->distance, function($query) use($request){                   
                     return $query->whereRaw('(select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) is not null AND (select ( 6371 * acos( cos( radians('.$request->lat.') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('.$request->lng.') ) + sin( radians('.$request->lat.') ) * sin( radians( lat ) ) ) )   from locations where id=events.location_id  limit 1) < '.$request->distance); 

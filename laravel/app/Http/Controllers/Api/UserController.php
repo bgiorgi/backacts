@@ -70,6 +70,22 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         
+        $userPreference = new UserPreference;
+        $userPreference->user_id = $user->id;
+        $userPreference->food = 1;
+        $userPreference->save();
+        
+        
+        // insert 2 most popular tag
+        $popularTags = EventTag::selectRaw('tag_id, count(tag_id) as tag_count')->groupBy('tag_id')->orderBy('tag_count','desc')->limit(2)->get();
+        foreach($popularTags as $popularTag) {
+            $userTag = new UserTag;
+            $userTag->user_id = $user->id;
+            $userTag->tag_id = $popularTag->tag_id;
+            $userTag->save();
+        }
+
+        
         return Response::json('success',200);
     }
     

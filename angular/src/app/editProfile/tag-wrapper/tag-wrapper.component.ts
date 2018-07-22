@@ -12,17 +12,20 @@ export class TagWrapperComponent implements OnInit {
   popularTags:any;
   
 
-  constructor(private tagWrapperService: TagWrapperService) { 
-    this.getPopularTags();
+  constructor(public tagWrapperService: TagWrapperService) { 
   }
 
   ngOnInit() {
+    this.getPopularTags();    
   }
   
 
   // get popular tags, from events. backend returns is_user_tag, if tag is also selected previously by user.
   getPopularTags() {
-    this.tagWrapperService.getPopularTags().subscribe(data => this.popularTags = data);
+    this.tagWrapperService.getPopularTags().subscribe(data => {
+      this.popularTags = data;
+      this.onOutputTags.emit(this.popularTags.filter(tag => tag.is_user_tag));
+      });
   }
   
   // when user clicks tag is_user_tag should be toggled

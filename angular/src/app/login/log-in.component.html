@@ -18,7 +18,7 @@
     <br>
     <button mat-button type="submit" class="red-button">Login</button>
     <p class="no-account">No account?</p>
-    <p class="text-link"  [routerLink]="['/sign-up']" >Sign Up</p>
+    <p class="text-link"  [routerLink]="['/sign-up']" [queryParams]="{ returnUrl: returnUrl }">Sign Up</p>
     <img src="../../assets/img/inst_logo.png" alt="">
     <p>© 2018 The book of Acts</p>
   </form>

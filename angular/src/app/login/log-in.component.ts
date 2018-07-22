@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './log-in.service';
-import { Router } from '@angular/router'; 
+import { Router, ActivatedRoute } from '@angular/router'; 
 import { Http, Response } from '@angular/http';
 import { MatSnackBar } from '@angular/material';
 import { UserService } from '../shared/user.service'; //user service, which shares the data about the user
@@ -13,20 +13,21 @@ import { UserService } from '../shared/user.service'; //user service, which shar
 
 export class LogInComponent implements OnInit {
   
-
+  returnUrl:any;
   
   ngOnInit() {
           // delete old storage data
     localStorage.removeItem('access_token');
     this.userService.changeCurrentUser({});
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   
-  constructor(private loginService: LoginService, private router: Router, public snackBar: MatSnackBar, private userService: UserService) {}
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute, public snackBar: MatSnackBar, private userService: UserService) {}
   
   
    onSubmit(username, password) {
       this.loginService.userAuthentication(username, password).subscribe((data:any)=>{
-        this.router.navigate(['/']);
+        this.router.navigateByUrl(this.returnUrl);
       },
       (Err:any)=>{
         let errorMessage;

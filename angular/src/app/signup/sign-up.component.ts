@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignUpService } from './sign-up.service';
 import {MatSnackBar} from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 // import login service, to autenticate users
 import { LoginService } from '../login/log-in.service';
 
@@ -19,6 +19,7 @@ export class SignUpComponent {
 
   
   responseErrors:any;
+  returnUrl: string;
   
   
   signedUp = false;
@@ -30,7 +31,14 @@ export class SignUpComponent {
     password_confirmation: ''
   };
   
-  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router, private loginService: LoginService) {  }
+  constructor(private signUpService: SignUpService, public snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute, private loginService: LoginService) {  }
+  
+  
+    ngOnInit() {
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+  
+  
   
      onSubmit(username, email, password, password_confirmation) {
       this.signUpService.signUp(username, email, password, password_confirmation).subscribe((data:any)=>{
@@ -46,7 +54,7 @@ export class SignUpComponent {
 
         
         setTimeout((router: Router) => {
-        this.router.navigate(['nextRoute']);
+        this.router.navigateByUrl(this.returnUrl);
     }, 3000);  
 
 

@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
   coords:any;
   datePickerPristine:boolean = true;
   formDisabled:boolean;
+  searchFormSubscription;
 
   
   
@@ -45,11 +46,14 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.valueChanges();
     if(this.actsType!=='all' && this.actsType!='interests') {
-      // this.searchForm.disable();
       this.formDisabled = true;
     }
   }
   
+
+  ngOnDestroy() {
+    this.searchFormSubscription.unsubscribe();
+  }
   
     createForm() {
     this.searchForm = this.fb.group({
@@ -67,7 +71,7 @@ export class MenuComponent implements OnInit {
   
 // form value changes  
   valueChanges() {
-    this.searchForm.valueChanges
+    this.searchFormSubscription = this.searchForm.valueChanges
     .subscribe(values => {
       // prepare data for service listener which will load data in acts list component
       let params:any = {};
@@ -81,7 +85,6 @@ export class MenuComponent implements OnInit {
       params.lat = this.coords.latitude;
       params.lng = this.coords.longitude;
       }
-      
       this.searchFormService.changeCurrentParams(params);
       
 
