@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import * as moment from 'moment/moment';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,7 @@ export class EditProfileService {
     
     
     updateProfile(params) {
+    params.birth_date = moment(params.birth_date).format('YYYY-MM-DD');
     let access_token = localStorage.getItem('access_token');
     const httpOptions = {
       headers: new HttpHeaders({

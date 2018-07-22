@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import * as moment from 'moment/moment';
 
 
 @Injectable({
@@ -30,6 +31,7 @@ export class AddActService {
   
   
   addAct(params) {
+    params.date = moment(params.date).format('YYYY-MM-DD');
     let access_token = localStorage.getItem('access_token');
     const httpOptions = {
       headers: new HttpHeaders({
