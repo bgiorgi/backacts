@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import {FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {FormGroup, FormBuilder } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { AddActService } from './addAct.service';

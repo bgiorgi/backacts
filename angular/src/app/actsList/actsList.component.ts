@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActsListService } from './actsList.service';
 import { SearchFormService } from '../shared/search-form.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { map, concatMap } from 'rxjs/operators';
 
 
@@ -24,13 +23,14 @@ export class ActsListComponent implements OnInit {
   params:any;
   actsLoading:boolean;
   searchFormSubscription;
+  noMoreActs:boolean;
 
   
 
 
   
   
-  constructor(private actsListService: ActsListService, private searchFormService: SearchFormService, private route: ActivatedRoute,    public snackBar: MatSnackBar) {
+  constructor(private actsListService: ActsListService, private searchFormService: SearchFormService, private route: ActivatedRoute) {
       this.actsType = null;
       route.data.subscribe(data => this.actsType = data.actsType); // get actsType from routing. all, interests, bookmarked, uploads
   }
@@ -68,7 +68,7 @@ export class ActsListComponent implements OnInit {
   onScroll() {
     if(this.acts) {
     let lastPage = this.acts.meta.last_page;
-    if(lastPage>1 && lastPage==this.currentPage) this.snackBar.open('No more acts',null,{ duration: 2000})
+    if(lastPage>1 && lastPage==this.currentPage) this.noMoreActs = true;
     else if(this.currentPage < lastPage) {
       this.currentPage++;
       this.params.page = this.currentPage;
