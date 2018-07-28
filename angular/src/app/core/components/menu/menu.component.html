@@ -23,11 +23,14 @@
     </mat-menu>
 
     <form action="" [formGroup]="searchForm" [ngClass]="{'disableDiv': formDisabled}">
+      
       <mat-form-field appearance="outline" class="red-input">
-        <span matPrefix> <mat-icon>search</mat-icon>  &nbsp; &nbsp;</span>
-        <mat-label>Search</mat-label>
+        <span matPrefix  style="width:2rem"><mat-icon>search</mat-icon></span>
         <input matInput placeholder="Search" formControlName="keyword">
+        <mat-label>Search</mat-label>        
       </mat-form-field>
+
+      
 
       <div class="accordion-wrapper">
         <mat-accordion>
@@ -109,6 +112,6 @@
 <div class="dark-background" (click)="ToggleMenu()"></div>
 
 <div class="mobile-menu">
-  <span>Acts</span>
+  <img class="mobile-logo" routerLink="/" src="/assets/img/logo_mobile.png">
   <mat-icon (click)="ToggleMenu()" class="menu-icon">menu</mat-icon>
 </div>
