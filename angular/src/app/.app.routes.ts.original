@@ -13,7 +13,7 @@ import { StaticPageComponent } from './static-page/static-page.component';
 import { AuthGuard } from './auth.guard';
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/add-act', pathMatch: 'full' },
+  { path: '', redirectTo: '/acts/all', pathMatch: 'full' },
   { path: 'acts',
   children: [
     { path: 'all', component: ActsListComponent, data: { actsType: 'all' }},

@@ -47,6 +47,9 @@ class EventController extends Controller
                 return $query->where('date_time','>',$dayStart)->where('date_time','<',$dayEnd);
                 
             })  
+            ->when(!$request->date, function($query) {
+                return $query->where('date_time','>',date('Y-m-d 0:0:0'));
+            })
             //price max
             ->when($request->price_max, function($query) use($request) {
                 return $query->whereRaw('(price_amount < '.$request->price_max.' or price_amount is null)');
