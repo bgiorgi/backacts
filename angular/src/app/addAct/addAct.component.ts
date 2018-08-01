@@ -114,7 +114,7 @@ export class AddActComponent implements OnInit {
       min_age:'',
       alcohol:'',
       food:'',
-      price_type: 'paid',
+      price_type: '',
       price_method: '',
       price_amount: '',      
       ticket_link:'',

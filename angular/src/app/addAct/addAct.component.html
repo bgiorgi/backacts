@@ -90,18 +90,18 @@
           </mat-select>
         </mat-form-field>
 
-        <div>
+        <div *ngIf="priceType.value=='paid'">
           $
           <mat-form-field appearance="outline" class="red-input">
-            <input matInput placeholder="Amount" formControlName="price_amount">
+            <input matInput type="number" placeholder="Amount" formControlName="price_amount">
                    <mat-hint *ngIf="responseErrors?.price_amount"><small class="red-text">{{ responseErrors?.price_amount[0] }}</small></mat-hint>          
             <mat-label>Amount</mat-label>
           </mat-form-field>
         </div>
 
-        <mat-form-field>
+        <mat-form-field  *ngIf="priceType.value=='paid'">
           <mat-select placeholder="Method" formControlName="price_method">
-            <mat-option *ngFor="let priceMethod of priceMethods">
+            <mat-option *ngFor="let priceMethod of priceMethods" [value]="priceMethod">
               {{ priceMethod }}
             </mat-option>
           </mat-select>
