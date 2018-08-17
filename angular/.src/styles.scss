@@ -1,0 +1,71 @@
+@import '_utilities';
+
+html {
+
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue";
+    background-image: url(/assets/img/bg.png);
+    height: 100%;
+    background-attachment: fixed;
+    background-repeat: repeat-x;
+    padding-bottom:60px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans";
+}
+
+.top-logo {
+  width: 200px;
+  margin-bottom: 4rem;
+}
+
+
+.inline-input-wrapper {
+  width: 100%;
+  max-width: 430px;
+  display: inline-flex;
+  &>mat-form-field {
+    margin-right: 20px;
+  }
+}
+
+.logo-img {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.grey-link {
+  color: #3f3f3f;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.grey-link:hover {
+  text-decoration: underline;
+}
+
+.text-link:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 450px) {
+  .inline-input-wrapper {
+    display: inline-block;
+
+    &>mat-form-field {
+      width: 100%;
+      max-width: 430px;
+      margin-right: 0;
+    }
+  }
+}

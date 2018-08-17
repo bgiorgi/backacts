@@ -1,22 +1,25 @@
 .add-act-container {
   height: 100%;
   width: 100%;
-
   display: flex;
   align-items: center;
   flex-direction: column;
-
-  margin-top: 100px;
   padding-bottom: 100px;
 
+  .top-logo {
+    width: 250px;
+    margin: 25px;
+  }
+
+  p.addact {
+    font-size: 16px;
+  }
 
   mat-card {
     width: 100%;
     max-width: 400px;
     padding: 20px 150px;
-
   }
-
 }
 
 
@@ -24,9 +27,14 @@ form {
   .custom-red-color {
     font-weight: 800;
   }
- mat-form-field {
-   width: 100%;
- }
+
+  .duration-row {
+    display: flex;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
 }
 
 .form-row {
@@ -36,36 +44,36 @@ form {
   div {
     display: flex;
     align-items: baseline;
-
   }
 
   * {
     margin-right: 10px;
     flex-shrink: 5;
   }
-}
 
-.price-row {
-  & > * {
-    width: 30%;
+  .price-row {
+    width: 90px;
+    margin-right: 30px;
+  }
+
+  .price-amount {
+    width: 120px;
     margin-right: 10px;
   }
-}
 
-.date-time-row {
-  & > * {
-    width: 45%;
-    margin-right: 10px;
-  }
-  
-  
-  .number {
-    max-width: 5rem;
+  .price-method {
+    width: 120px;
   }
 }
 
-.age-wrapper {
-  margin-top: 60px;
+.number {
+  max-width: 5rem;
+}
+
+.pbg {
+  text-align: right;
+  top: -18px;
+  position: relative;
 }
 
 .image-drop-place {
@@ -103,10 +111,20 @@ form {
 
 }
 
+p.imagehint {
+  font-size: 11px;
+  margin-top: .3em;
+  margin-left: 10px;
+}
 
 .round-button {
   margin: 0 auto;
   display: block;
+}
+
+.red-submit-button {
+  text-align: center;
+  margin: 35px;
 }
 
 @media screen and (max-width: 750px) {
@@ -128,6 +146,25 @@ form {
 
   }
 }
+
+@media screen and (max-width: 400px) {
+  .form-row {
+    display: table;
+
+    .price-row {
+      width: 200px;
+      margin-top: 30px;
+    }
+
+    .price-amount {
+      width: 182px;
+    }
+
+    .price-method {
+      width: 200px;
+    }
+  }
+  }
 
 
 .image-upload > input

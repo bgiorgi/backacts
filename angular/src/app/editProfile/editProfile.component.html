@@ -45,7 +45,7 @@
 
 
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="birth_date">
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="birth_date" (click)="picker.open()">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-hint>Add your age to see relevant content</mat-hint>
