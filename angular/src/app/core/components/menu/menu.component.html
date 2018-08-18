@@ -14,12 +14,12 @@
   <div class="menu-content">
 
 
-    <button mat-button [matMenuTriggerFor]="menu" class="my-4">{{ actsType == 'all' ? 'All events' : actsType == 'interests' ? 'My interests' : actsType == 'bookmarked' ? 'My bookmarks' : 'My uploads' }} <mat-icon>unfold_more</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="menu" class="my-4">{{ actsType == 'all' ? 'All events' : actsType == 'interests' ? 'My interests' : actsType == 'bookmarked' ? 'Bookmarks' : 'Uploads' }} <mat-icon>unfold_more</mat-icon></button>
     <mat-menu #menu="matMenu">
-      <a mat-menu-item routerLink="/">All events</a>
+      <a mat-menu-item routerLink="/">Everything</a>
       <a mat-menu-item routerLink="/acts/interests" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">My interests</a>
-      <a mat-menu-item routerLink="/acts/bookmarked" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">My bookmarks</a>
-      <a mat-menu-item routerLink="/acts/uploads" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">My uploads</a>
+      <a mat-menu-item routerLink="/acts/bookmarked" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Bookmarks</a>
+      <a mat-menu-item routerLink="/acts/uploads" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Uploads</a>
     </mat-menu>
 
     <form action="" [formGroup]="searchForm" [ngClass]="{'disableDiv': formDisabled}">

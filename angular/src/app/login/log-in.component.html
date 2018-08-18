@@ -1,6 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="log-in-wrapper">
-  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-logo"></a>
+  <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
   <p class="login">Login to add upcoming events, activities and gigs:</p>
 
   <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit(username.value,password.value)">
@@ -18,7 +18,7 @@
 
     <p class="no-account" [routerLink]="['/sign-up']" [queryParams]="{ returnUrl: returnUrl }">Sign Up</p>
     <a href="www.instagram.com/backacts" target="_blank">
-      <img class="insta" src="../../assets/img/inst_logo.png" alt="">
+      <img class="insta" src="/img/inst_logo.png" alt="">
     </a>
   </form>
 </div>

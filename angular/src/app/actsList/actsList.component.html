@@ -3,7 +3,6 @@
 <app-menu [actsType]="actsType"></app-menu>
 <div class="act-page-container">
   <!--<h2>Today</h2>-->
-  <a routerLink="/"><img  style="position:absolute" src="../../assets/img/logo.png" alt="" class="top-logo"></a>
   <div class="act-list" align="center">
     <app-act-display *ngFor="let act of acts?.data" [act]="act"></app-act-display>
   </div>

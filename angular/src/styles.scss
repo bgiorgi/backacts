@@ -6,11 +6,12 @@ html {
 
 body {
   margin: 0;
-  font-family: "Open Sans";
-    background-image: url(/assets/img/bg.png);
-    height: 100%;
-    background-attachment: fixed;
-    background-repeat: repeat-x;
+  font-family: 'Montserrat', sans-serif !important;
+  background: url(/assets/img/bg.gif) no-repeat center;
+  background-size: cover;
+  height: 100%;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
 }
 
 h1,
@@ -19,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans";
+  font-family: 'Montserrat', sans-serif;
 }
 
 .top-logo {
