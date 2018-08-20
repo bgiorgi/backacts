@@ -57,7 +57,7 @@ class UserEventsController extends Controller
         ->with('location') 
         ->with('tags')
         ->with('user')
-        ->groupBy('id')                
+        ->groupBy('events.id')                
         ->paginate(5);
         // ->toSql();
         // dd($events);
@@ -78,7 +78,7 @@ class UserEventsController extends Controller
         ->with('location') 
         ->with('tags')
         ->with('user')
-        ->groupBy('id')        
+        ->groupBy('events.id')        
         ->paginate(5);
     
         return EventResource::collection($events);
