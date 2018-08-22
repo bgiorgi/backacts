@@ -48,7 +48,11 @@ class Event extends Resource
         
         $targetTime = strtotime($dateTime);
         $currentTime = time();
-        $dayDifference = floor(($targetTime-$currentTime)/(24*60*60));
+        
+        $targetDayStart = strtotime(date('Y-m-d 0:0:0',$targetTime));
+        $currentDayStart = strtotime(date('Y-m-d 0:0:0',$currentTime));
+        
+        $dayDifference = floor(($targetDayStart-$currentDayStart)/(24*60*60));
         switch($dayDifference) {
             case 0: $relativeDate = 'Today'; break;
             case 1: $relativeDate = 'Tomorrow'; break;
