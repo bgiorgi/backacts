@@ -1,10 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="add-act-container">
-  <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
   <mat-card>
-    <form [formGroup]="actForm" (ngSubmit)="onSubmit()" autocomplete="off">
-      <h1 class="custom-red-color">Add an Act</h1>
-      <p class="addact">Add an upcoming event, activity or gig.<br><br>It will be visible when I'm live September 5th.</p>
+    <form [formGroup]="actForm" (ngSubmit)="onSubmit()" action="google.com" autocomplete="off">
+      <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
+      <h2>Add an Act</h2>
+      <p class="addact">Add an upcoming event, activity or gig. <br>It will be visible when I'm live September 5th.</p>
       <mat-form-field appearance="outline" class="red-input">
         <mat-label>Title *</mat-label>
         <input matInput placeholder="Title" formControlName="title">
@@ -32,7 +32,7 @@
         <mat-form-field appearance="outline" class="red-input">
           <input matInput type="number" placeholder="Duration" formControlName="duration_hours">
           <mat-hint *ngIf="responseErrors?.duration_hours"><small class="red-text">{{ responseErrors?.duration_hours[0] }}</small></mat-hint>
-          <mat-hint *ngIf="!responseErrors?.duration_hours">Decimal points okay</mat-hint>
+          <mat-hint *ngIf="!responseErrors?.duration_hours" style="display:none;">Decimal points okay</mat-hint>
         </mat-form-field> Hour(s)
       </div>
 
@@ -49,10 +49,10 @@
       </div>
 
         <mat-form-field appearance="outline" class="red-input">
-          <input matInput placeholder="http://" formControlName="link">
+          <input matInput value="http://" formControlName="link">
           <mat-hint *ngIf="responseErrors?.link"><small class="red-text">{{ responseErrors?.link[0] }}</small></mat-hint>
           <mat-label>External Link</mat-label>
-          <mat-hint *ngIf="!responseErrors?.link">Website, Youtube, Soundcloud etc.</mat-hint>
+          <mat-hint *ngIf="!responseErrors?.link">Instagram, Youtube, Soundcloud, Website...</mat-hint>
         </mat-form-field>
 
       <mat-form-field appearance="outline" class="red-input">
@@ -128,7 +128,7 @@
           </div>
         </label>
       </div>
-      <p class="imagehint">For best results upload a high rez, no text, fresh, clean image</p>
+      <p class="imagehint">Upload a <b>square</b>, high rez, fresh, clean image</p>
 
       <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
 

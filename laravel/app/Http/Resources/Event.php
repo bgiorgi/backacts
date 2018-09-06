@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\Resource;
 use App\Http\Resources\Tag as TagResource;
 use App\Tag;
 
+use Auth;
+
 class Event extends Resource
 {
     /**
@@ -36,7 +38,9 @@ class Event extends Resource
                 'location' => $this->location,
                 'distance' => $this->distance,
                 'is_bookmarked' => $this->is_bookmarked,
-                'relative_date' => relativeDate($this->date_time)
+                'belongs_current_user' => belongsCurrentUser($this->user_id),
+                'relative_date' => relativeDate($this->date_time),
+                'bookmark_count' => $this->bookmark_count // for uploaders only
                 ];
     }
 }
@@ -64,4 +68,11 @@ class Event extends Resource
             $previousRelativeDate = $relativeDate;
             return $relativeDate;
         }
+    }
+    
+    
+    
+    
+    function belongsCurrentUser($userId) {
+        if(Auth('api')->check() && $userId==Auth('api')->user()->id) return 1;
     }

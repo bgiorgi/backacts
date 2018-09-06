@@ -18,6 +18,16 @@ Route::get('/', function () {
 });
 
 
+// email bulk download
+Route::get('admin/user-emails-bulk-export','EmailBulkController@Export')->middleware('admin.user');
+
+
+
+
+if (App::environment('local','production', 'staging')) {
+URL::forceScheme('https');
+}
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

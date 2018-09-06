@@ -2,6 +2,10 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 import { environment } from '../../../../environments/environment';
 import { ActDisplayService } from './act-display.service';
 import { MatSnackBar } from '@angular/material';
+import { SearchFormService } from '../../../shared/search-form.service';
+import * as copy from 'copy-to-clipboard';
+import {Router} from '@angular/router'
+ 
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,7 +17,7 @@ import { MatSnackBar } from '@angular/material';
 export class ActDisplayComponent implements OnInit {
 
 
-constructor(private actDisplayService: ActDisplayService, public snackBar: MatSnackBar) {
+constructor(private actDisplayService: ActDisplayService, public snackBar: MatSnackBar, private searchFormService: SearchFormService, private router: Router) {
   if(localStorage.getItem('access_token')) this.logged = true; // if there is access token in storage, user is logged
 }
 
@@ -39,7 +43,7 @@ isBookmarked:boolean;
       
     // initialize storage link for photos and eventUrlPre for sharers
     this.storageLink = environment.apiUrl+'/storage'; // for photos
-    this.eventUrlPre = environment.webUrl+'/event'; // for sharers
+    this.eventUrlPre = environment.webUrl+'/events'; // for sharers
 
   }
   
@@ -61,6 +65,12 @@ isBookmarked:boolean;
 
 
 
+
+
+  copyLink() {
+    copy(environment.webUrl+'/events/'+this.act.slug);
+      this.snackBar.open('Link was copied', null, { duration: 2000});
+  }
 
   
   

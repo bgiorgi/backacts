@@ -4,29 +4,31 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 100px;
+  text-align: center;
 
   .top-logo {
-    width: 250px;
-    margin: 25px;
+    width: 150px;
+    margin: 25px 0 0 0
   }
 
   p.addact {
     font-size: 16px;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: "Open Sans", sans-serif !important;
   }
 
   mat-card {
     width: 100%;
     max-width: 400px;
     padding: 20px 150px;
+    background: none !important;
+    box-shadow: none !important;
   }
 }
 
 
 form {
   mat-form-field {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: "Open Sans", sans-serif !important;
   }
 
   .custom-red-color {
@@ -124,9 +126,12 @@ p.imagehint {
 
 .round-button {
   margin: 0 auto;
-  display: block;
-  font-family: 'Montserrat', sans-serif !important;
-  border-radius: 4px;
+  width: 100px;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 17px;
+  font-weight: 400;
+  border-radius: 3px;
 }
 
 .red-submit-button {
@@ -136,7 +141,6 @@ p.imagehint {
 
 @media screen and (max-width: 750px) {
   .add-act-container {
-    margin-top: 10px;
 
     mat-card {
       width: calc(100% - 20px);

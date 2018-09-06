@@ -6,7 +6,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   background: url(/assets/img/bg.gif) no-repeat center;
   background-size: cover;
   height: 100%;
@@ -20,14 +20,20 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
-.top-logo {
-  margin-bottom: 0px;
-  width:250px;
+h1 {
+  font-weight: 700 !important;
+  font-size: 30px;
+  margin: 40px 0 40px 5px;
 }
 
+h2 {
+  font-weight: 600 !important;
+  font-size: 38px;
+  margin-bottom: 0;
+}
 
 .inline-input-wrapper {
   width: 100%;
@@ -44,6 +50,11 @@ h6 {
   left: 20px;
 }
 
+.top-logo {
+  margin-top: 50px;
+  width: 250px;
+}
+
 .grey-link {
   color: #3f3f3f;
   font-weight: 800;
@@ -57,6 +68,14 @@ h6 {
 .text-link:hover {
   cursor: pointer;
 }
+
+
+.extra-small {
+  font-size:.6rem;
+}
+
+
+
 
 @media screen and (max-width: 450px) {
   .inline-input-wrapper {

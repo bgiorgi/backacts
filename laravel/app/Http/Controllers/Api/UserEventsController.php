@@ -35,11 +35,16 @@ class UserEventsController extends Controller
             $join->where('user_tag.user_id',Auth::user()->id)->whereRaw('user_tag.tag_id in(event_tag.tag_id)');
         })
         ->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'))
-        //keyword
-        ->when($request->keyword, function($query) use($request) {
-            return $query->where('title','like',"%$request->keyword%");
-            
-        })              
+            //keyword
+            ->when($request->keyword, function($query) use($request) {
+                // if keyword contains username. f.e "@someone"
+                if (strpos($request->keyword, '@') !== false) {
+                    $username = str_replace('@','',$request->keyword);
+                    return $query->whereRaw("events.user_id=(select id from users where username='$username' limit 1)"); 
+                }
+                else return $query->where('title','like',"%$request->keyword%");
+                
+            })               
         //date
         ->when($request->date, function($query) use($request,$dayStart,$dayEnd) {
             return $query->where('date_time','>',$dayStart)->where('date_time','<',$dayEnd);
@@ -89,6 +94,7 @@ class UserEventsController extends Controller
         $events = Event
         ::selectRaw('*, events.id, events.user_id')
         ->addSelect(DB::raw('(select 1 from bookmarks where event_id=events.id and user_id='.Auth('api')->user()->id.') as is_bookmarked'))
+        ->addSelect(DB::raw('(select count(*) from bookmarks where event_id=events.id) as bookmark_count'))
         ->where('user_id',Auth::user()->id)
         ->orderBy('date_time')            
         ->with('location') 

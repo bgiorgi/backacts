@@ -13,7 +13,7 @@ import { StaticPageComponent } from './static-page/static-page.component';
 import { AuthGuard } from './auth.guard';
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/add-act', pathMatch: 'full' },
+  { path: '', redirectTo: '/acts/all', pathMatch: 'full' },
   { path: 'acts',
   children: [
     { path: 'all', component: ActsListComponent, data: { actsType: 'all' }},
@@ -24,7 +24,7 @@ export const appRoutes: Routes = [
   { path: 'log-in', component: LogInComponent, pathMatch: 'full'  },
   { path: 'sign-up', component: SignUpComponent, pathMatch: 'full'  },
   { path: 'acts', component: ActsListComponent, pathMatch: 'full'  },
-  { path: 'events/:slug', component: UniqueActComponent, pathMatch: 'full'},
+  { path: 'events/:slug', component: UniqueActComponent, data: {'actsType':'userEvents'}},
   { path: 'add-act', component: AddActComponent, pathMatch: 'full',canActivate: [AuthGuard]  },
   { path: 'edit-profile', component: EditProfileComponent, pathMatch: 'full',canActivate: [AuthGuard]  },
   { path: 'about', component: StaticPageComponent, data: { slug: 'about' }},

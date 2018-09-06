@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 import { UserService } from '../../../shared/user.service';
 import { SearchFormService } from '../../../shared/search-form.service'; // to share data by behaviour subject
+
+
+
 
 
 @Component({
@@ -30,7 +33,7 @@ export class MenuComponent implements OnInit {
 
   
   
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private searchFormService: SearchFormService){
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private searchFormService: SearchFormService){
         // fetch user date from user service, if exists
         this.userService.currentUser.subscribe((data:any) => {
           if(data.id) {
@@ -48,6 +51,14 @@ export class MenuComponent implements OnInit {
     if(this.actsType!=='all' && this.actsType!='interests') {
       this.formDisabled = true;
     }
+    
+  // get url keyword parameter and put in keyword input  
+  this.route.paramMap.subscribe((data:any) => this.searchForm.controls['keyword'].setValue(data.params.keyword));
+  // change url keyword parameter, when keyword input changes
+  this.searchForm.controls['keyword'].valueChanges.subscribe(value => {
+  this.router.navigate(['/acts/all',{keyword:value}]);
+});
+  
   }
   
 
@@ -62,7 +73,10 @@ export class MenuComponent implements OnInit {
       distance: undefined,
       price_max: undefined,
       order_by: undefined
-    })
+    });
+
+
+
   }
 
 

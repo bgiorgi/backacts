@@ -1,0 +1,47 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="log-in-wrapper">
+  <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
+  <p class="login">Sign up to add upcoming events, activities and gigs:</p>
+
+
+  <form class="login-form" #signUpForm="ngForm" (ngSubmit)="onSubmit(username.value,email.value, password.value, password_confirmation.value)">
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" #username required [(ngModel)]="model.username" name="username">
+       <mat-error  [hidden]="username.valid || username.pristine"><small>Username is <strong>required</strong></small></mat-error>
+       <mat-hint *ngIf="responseErrors?.username"><small class="red-text">{{ responseErrors?.username[0] }}</small></mat-hint>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="email" #email required [(ngModel)]="model.email" name="email">
+      <mat-hint *ngIf="responseErrors?.email"><small class="red-text">{{ responseErrors?.email[0] }}</small></mat-hint>      
+    </mat-form-field>
+
+    <br>
+
+    <div class="inline-input-wrapper">
+      <mat-form-field appearance="outline" class="red-input">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" type="password" #password required [(ngModel)]="model.password" name="password">
+        <mat-hint *ngIf="responseErrors?.password"><small class="red-text">{{ responseErrors?.password[0] }}</small></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput placeholder="Confirm Password" type="password" #password_confirmation required [(ngModel)]="model.password_confirmation" name="password_confirmation">
+      </mat-form-field>
+              
+    </div>
+
+    <br>
+    <!--<p>By joining you agree to our <span class="grey-link">Terms</span> and<span class="grey-link"> Privacy policy</span></p>-->
+    <button mat-button type="submit" class="red-button">Sign Up</button>
+  </form>
+
+  <p class="no-account" [routerLink]="['/log-in']">Login</p>
+
+  <a href="instagram.com/backacts" target="_blank">
+    <img class="insta" src="/img/inst_logo.png" alt=""></a>
+
+</div>

@@ -17,6 +17,7 @@ use App\Http\Requests\AddEvent;
 
 class EventController extends Controller
 {
+    
 
     public static function Search(Request $request) {
         
@@ -39,7 +40,12 @@ class EventController extends Controller
             })
             //keyword
             ->when($request->keyword, function($query) use($request) {
-                return $query->where('title','like',"%$request->keyword%");
+                // if keyword contains username. f.e "@someone"
+                if (strpos($request->keyword, '@') !== false) {
+                    $username = str_replace('@','',$request->keyword);
+                    return $query->whereRaw("user_id=(select id from users where username='$username' limit 1)"); 
+                }
+                else return $query->where('title','like',"%$request->keyword%");
                 
             })              
             //date
@@ -100,7 +106,7 @@ class EventController extends Controller
 
 
         $event = new Event;
-        $event->user_id = Auth::user()->id;
+        $event->user_id = Auth('api')->user()->id;
         $event->title = $request->title;
         $event->slug = str_slug($request->title);
         $event->date_time = date('Y-m-d',strtotime($request->date)).' '.$request->time;

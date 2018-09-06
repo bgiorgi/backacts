@@ -1,0 +1,141 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="add-act-container">
+  <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
+  <mat-card>
+    <form [formGroup]="actForm" (ngSubmit)="onSubmit()" autocomplete="off">
+      <h1 class="custom-red-color">Add an Act</h1>
+      <p class="addact">Add an upcoming event, activity or gig.<br><br>It will be visible when I'm live September 5th.</p>
+      <mat-form-field appearance="outline" class="red-input">
+        <mat-label>Title *</mat-label>
+        <input matInput placeholder="Title" formControlName="title">
+        <mat-hint *ngIf="responseErrors?.title"><small class="red-text">{{ responseErrors?.title[0] }}</small></mat-hint>
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field appearance="outline" class="red-input">
+        <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date"  (click)="picker.open()">
+        <mat-hint *ngIf="responseErrors?.date"><small class="red-text">{{ responseErrors?.date[0] }}</small></mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-label>Date *</mat-label>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input time-field">
+        <input matInput placeholder="Start Time" type="time" formControlName="time">
+        <mat-hint *ngIf="responseErrors?.time"><small class="red-text">{{ responseErrors?.time[0] }}</small></mat-hint>
+        <mat-label>Start Time *</mat-label>
+      </mat-form-field>
+
+
+      <div class="form-row duration-row">
+        <mat-form-field appearance="outline" class="red-input">
+          <input matInput type="number" placeholder="Duration" formControlName="duration_hours">
+          <mat-hint *ngIf="responseErrors?.duration_hours"><small class="red-text">{{ responseErrors?.duration_hours[0] }}</small></mat-hint>
+          <mat-hint *ngIf="!responseErrors?.duration_hours">Decimal points okay</mat-hint>
+        </mat-form-field> Hour(s)
+      </div>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <input matInput placeholder="Location" [matAutocomplete]="auto" value="ChIJN1t_tDeuEmsRUsoyG83frY4" formControlName="google_place">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option.description }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="pbg">
+        <img src="/assets/img/google_logo.png">
+      </div>
+
+        <mat-form-field appearance="outline" class="red-input">
+          <input matInput placeholder="http://" formControlName="link">
+          <mat-hint *ngIf="responseErrors?.link"><small class="red-text">{{ responseErrors?.link[0] }}</small></mat-hint>
+          <mat-label>External Link</mat-label>
+          <mat-hint *ngIf="!responseErrors?.link">Website, Youtube, Soundcloud etc.</mat-hint>
+        </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <input matInput placeholder="Tags" formControlName="tags">
+        <mat-label>Tags</mat-label>
+        <mat-hint>
+          Use this hashtag formula: #category #type #setting #activity
+
+        </mat-hint>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="red-input">
+          <input matInput type="number" placeholder="Min Age" formControlName="min_age">
+          <mat-hint *ngIf="responseErrors?.min_age"><small class="red-text">{{ responseErrors?.min_age[0] }}</small></mat-hint>
+          <mat-label>Min Age</mat-label>
+        </mat-form-field>
+        <mat-checkbox formControlName="alcohol">Alcohol</mat-checkbox>
+        <mat-checkbox formControlName="food">Food</mat-checkbox>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="price-row">
+          <mat-select placeholder="Price" #priceType formControlName="price_type">
+            <mat-option *ngFor="let priceType of priceTypes" [value]="priceType.value">{{ priceType.title }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="priceType.value=='paid'">
+          <p>$ </p>  
+          <mat-form-field appearance="outline" class="price-amount red-input">
+            <input matInput type="number" placeholder="Amount" formControlName="price_amount">
+            <mat-hint *ngIf="responseErrors?.price_amount"><small class="red-text">{{ responseErrors?.price_amount[0] }}</small></mat-hint>
+            <mat-label>Amount</mat-label>
+          </mat-form-field>
+        </div>
+        <mat-form-field *ngIf="priceType.value=='paid'" class="price-method">
+          <mat-select placeholder="Method" formControlName="price_method">
+            <mat-option *ngFor="let priceMethod of priceMethods" [value]="priceMethod">
+              {{ priceMethod }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+        <mat-form-field appearance="outline" class="red-input">
+          <input matInput placeholder="http://" formControlName="ticket_link">
+          <mat-hint *ngIf="responseErrors?.ticket_link"><small class="red-text">{{ responseErrors?.ticket_link[0] }}</small></mat-hint>
+          <mat-label>Ticket Purchase Link (Optional)</mat-label>
+        </mat-form-field>
+
+      <mat-form-field appearance="outline" class="red-input">
+        <textarea matInput #description placeholder="More Info" maxlength="256" formControlName="description"></textarea>
+        <mat-label>More Info</mat-label>
+        <mat-hint align="end">{{ description.value.length }} / 256</mat-hint>
+      </mat-form-field>
+
+      <div class="image-drop-place">
+        <label for="file-input" align="center" class="c-pointer">
+          <div class="image-upload">
+
+            <div *ngIf="selectedImage">
+              <img *ngIf="uploadedImage" class="uploaded-image" [src]="storageLink+'/'+uploadedImage">
+              <p *ngIf="selectedImage && !uploadedImage">Image is uploading...</p>
+              <br>
+              <p *ngIf="uploadedImage"><small>Change image</small></p>
+            </div>
+            <div *ngIf="!selectedImage">
+              <mat-icon>cloud_upload</mat-icon>
+              <p>Main Image</p>
+              <p>To select image click here</p>
+            </div>
+
+          </div>
+        </label>
+      </div>
+      <p class="imagehint">For best results upload a high rez, no text, fresh, clean image</p>
+
+      <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
+
+      <div class="red-submit-button">
+      <button mat-button class="red-button round-button" type="submit">Submit</button>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

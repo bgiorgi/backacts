@@ -4,28 +4,56 @@
 }
 
 .act-wrapper {
-  max-width: 800px;
-  height: 350px;
-
+  max-width: 775px;
+  height: 325px;
+  background-color: #f9f9f9;
   display: flex;
-  margin-bottom: 30px;
-
+  margin: 0px 5px 30px 5px;
   padding: 0;
   overflow: hidden;
   border-radius: 7px;
-
   transition-property: all;
   transition-duration: 0.5s;
+  -webkit-box-shadow: 10px 20px 89px -16px rgba(0,0,0,0.51) !important;
+  -moz-box-shadow: 10px 20px 89px -16px rgba(0,0,0,0.51) !important;
+  box-shadow: 10px 20px 89px -16px rgba(0,0,0,0.51) !important;
+}
+
+.act-wrapper h2 {
+  font-weight: 600;
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.mat-icon-small {
+  font-size: 18px !important;
+}
+
+.info-link {
+  text-decoration: none !important;
+  color: black;
+}
+
+.act-line-tags {
+  line-height: 25px;
+}
+
+.info-tags {
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 1px 5px;
+  margin: 3px 3px;
+  font-size: 12px;
 }
 
 .img-wrapper {
-  width: 350px;
+  width: 325px;
   display: inline-block;
   overflow: hidden;
 
   img {
     min-width: 100%;
-    min-height: 100%;
+    max-height: 100%;
     transform: translateX(-50%);
     left: 50%;
     position: relative;
@@ -55,14 +83,10 @@
 
 
 .content-wrapper {
-  width: 390px;
-
+  width: 410px;
   display: inline-block;
   vertical-align: top;
-
-  padding: 30px;
-
-
+  padding: 15px 15px 15px 25px;
 }
 
 .content-header {
@@ -76,15 +100,21 @@
   }
 }
 
-.act-content {}
+.act-content {
+  max-width: 397px;
+}
 
 .act-detail {
   margin-left: 5px;
   vertical-align: super;
 }
 
+.act-line-info {
+  padding-bottom: 4px;
+  font-size: 14px;
+}
+
 .act-footer {
-  margin-top: 25px;
   display: flex;
   bottom: 0;
   position: absolute;
@@ -93,8 +123,9 @@
 }
 
 .act-price {
-  font-size: 35px;
-  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -2px;
+  font-weight: 600;
 }
 
 
@@ -102,34 +133,36 @@
 .act-tickets {
   display: inline-block;
   vertical-align: top;
-  margin: 0 0 5px 10px;
-  padding: 4px;
-
-  border-radius: 7px;
+  margin: 7px 0 5px 10px;
+  padding: 3px 5px;
+  border-radius: 11px;
   background-color: #00A750;
   color: white;
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 11px;
+  letter-spacing: 1px;
 }
 
 .more-info {
-  margin-top: 20px;
-  color: gray;
+  color: #888888;
+  font-size: 13px;
+  bottom: 0;
+  position: absolute;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
   }
 }
 
 .author-wrapper {
   width: 100%;
-  display: flex;
   justify-content: flex-end;
   align-items: center;
   text-align: right;
-
-  color: gray;
+  color: #888888;
+  margin-bottom: 15px;
+  font-size: 13px;
 
   img {
     width: 60px; // border-radius: 30px;
@@ -140,15 +173,15 @@
 
     p {
       margin: 0;
+
       &:hover {
-        text-decoration: underline;
-        cursor: pointer;
+        text-decoration: none;
       }
     }
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 810px) {
   .act-wrapper {
     max-width: 450px;
     height: 100%;
@@ -159,7 +192,7 @@
     .img-wrapper {
       width: 100%;
       text-align: center;
-      height: 350px;
+      height: 450px;
     }
 
     .content-wrapper {
@@ -169,68 +202,8 @@
   }
 }
 
+
+
 @media screen and (max-width: 500px) {
-  .content-wrapper {
-    width: calc(100% - 20px);
-    height: 100%;
 
-    position: absolute;
-    top: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    padding: 10px;
-    background-color: black;
-    opacity: 0.8;
-
-    color: white;
-    z-index: 10;
-  }
-
-  .act-tickets {
-    background-color: initial;
-  }
-
-  .content-header {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  .act-content {
-    position: absolute;
-    top: 0;
-  }
-
-  .act-footer {
-    bottom: 50px;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .content-wrapper {
-    font-size: 13px;
-
-    h2 {
-      font-size: 15px;
-    }
-  }
-
-  .act-price {
-    font-size: 20px;
-  }
-
-
-
-  .author-wrapper {
-    font-size: 11px;
-
-    img {
-      width: 30px;
-      height: 30px; // border-radius: 15px;
-    }
-  }
 }
