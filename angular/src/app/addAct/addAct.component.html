@@ -3,15 +3,14 @@
   <mat-card>
     <form [formGroup]="actForm" (ngSubmit)="onSubmit()" action="google.com" autocomplete="off">
       <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
-      <h2>Add an Act</h2>
-      <p class="addact">Add an upcoming event, activity or gig. <br>It will be visible when I'm live September 5th.</p>
+      <h2>Post an Act</h2>
+      <p class="addact">Add an upcoming show, event or gig.</p>
       <mat-form-field appearance="outline" class="red-input">
         <mat-label>Title *</mat-label>
         <input matInput placeholder="Title" formControlName="title">
         <mat-hint *ngIf="responseErrors?.title"><small class="red-text">{{ responseErrors?.title[0] }}</small></mat-hint>
       </mat-form-field>
       <br>
-
 
       <mat-form-field appearance="outline" class="red-input">
         <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date"  (click)="picker.open()">
@@ -26,7 +25,6 @@
         <mat-hint *ngIf="responseErrors?.time"><small class="red-text">{{ responseErrors?.time[0] }}</small></mat-hint>
         <mat-label>Start Time *</mat-label>
       </mat-form-field>
-
 
       <div class="form-row duration-row">
         <mat-form-field appearance="outline" class="red-input">
@@ -133,7 +131,7 @@
       <input id="file-input" type="file" (change)="onFileChanged($event)" style="display:none" />
 
       <div class="red-submit-button">
-      <button mat-button class="red-button round-button" type="submit">Submit</button>
+      <button mat-button class="red-button round-button" type="submit">Post</button>
       </div>
 
     </form>

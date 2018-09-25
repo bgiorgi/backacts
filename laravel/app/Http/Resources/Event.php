@@ -60,8 +60,6 @@ class Event extends Resource
         switch($dayDifference) {
             case 0: $relativeDate = 'Today'; break;
             case 1: $relativeDate = 'Tomorrow'; break;
-            case 2: $relativeDate = '2 days later'; break;
-            case 3: $relativeDate = '3 days later'; break;
             default: $relativeDate = date('M d',$targetTime);
         }
         if($previousRelativeDate!=$relativeDate) {

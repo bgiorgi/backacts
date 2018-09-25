@@ -1,20 +1,32 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="menu-wrapper">
-  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-menu-logo"></a>
+
+  <div class="menu-header" [matMenuTriggerFor]="userMenu" *ngIf="logged">
+    <span style="cursor: pointer;"><b>@{{ currentUser.username }}</b></span>
+    <mat-icon>account_circle</mat-icon>
+    <mat-menu #userMenu="matMenu">
+      <a mat-menu-item [routerLink]="['/edit-profile']">Edit Profile</a>
+      <a mat-menu-item routerLink="/log-in">Logout</a>
+    </mat-menu>
+  </div>
+  <div class="menu-header" *ngIf="!logged">
+    <span [routerLink]="['/log-in']" class="c-pointer"><b>Log in</b></span>
+  </div>
+
   <div class="menu-content">
 
 
-    <button mat-button [matMenuTriggerFor]="menu" class="my-4 menu-selection">{{ actsType == 'all' ? 'All events' : actsType == 'interests' ? 'For Me' : actsType == 'bookmarked' ? 'Bookmarks' : 'Uploads' }} <mat-icon>unfold_more</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="menu" class="my-4 menu-selection">{{ actsType == 'all' ? 'Everything' : actsType == 'interests' ? 'For Me' : actsType == 'bookmarked' ? 'Bookmarks' : 'Uploads' }} <mat-icon class="selection-icon">keyboard_arrow_down</mat-icon></button>
     <mat-menu #menu="matMenu">
       <a mat-menu-item routerLink="/">Everything</a>
-      <a mat-menu-item routerLink="/acts/interests" matTooltip="{{ !logged ? 'You need to be logged in' : 'Edit tags in your profile, to see the content for you'}}">For Me</a>
+      <a mat-menu-item routerLink="/acts/interests" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">For Me</a>
       <a mat-menu-item routerLink="/acts/bookmarked" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Bookmarks</a>
       <a mat-menu-item routerLink="/acts/uploads" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Uploads</a>
     </mat-menu>
 
     <form action="" [formGroup]="searchForm" [ngClass]="{'disableDiv': formDisabled}">
 
-      <mat-form-field appearance="outline" class="red-input" style="margin-bottom: -15px !important">
+      <mat-form-field appearance="outline" class="red-input search-input">
         <span matPrefix style="width:2rem"><mat-icon>search</mat-icon></span>
         <input matInput placeholder="Search" formControlName="keyword">
         <mat-label>Search</mat-label>
@@ -24,7 +36,7 @@
 
       <div class="accordion-wrapper">
         <mat-accordion>
-          <mat-expansion-panel style="display:none;">
+          <mat-expansion-panel>
             <mat-expansion-panel-header (click)="openPickerPristine()">
               <mat-panel-title>
                 <mat-icon>calendar_today</mat-icon> <span>{{ date.value ? (date.value | date) : 'Date' }}</span>
@@ -98,19 +110,9 @@
 
   </div>
 
-  <button mat-button class="black-button" [routerLink]="['/add-act']" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}"><span>+</span> Add an Act</button>
+  <button mat-button class="black-button" [routerLink]="['/add-act']" matTooltip="{{ !logged ? 'You need to be logged in' : 'Add an upcoming show, event or gig.'}}"><span>+</span>Post</button>
 
-  <div class="menu-header" [matMenuTriggerFor]="userMenu" *ngIf="logged">
-    <span style="cursor: pointer;"><b>@{{ currentUser.username }}</b></span>
-    <mat-icon>account_circle</mat-icon>
-    <mat-menu #userMenu="matMenu">
-      <a mat-menu-item [routerLink]="['/edit-profile']">Edit Profile</a>
-      <a mat-menu-item routerLink="/log-in">Logout</a>
-    </mat-menu>
-  </div>
-  <div class="menu-header" *ngIf="!logged">
-    <span [routerLink]="['/log-in']" class="c-pointer"><b>Log in</b></span>
-  </div>
+
 
 </div>
 

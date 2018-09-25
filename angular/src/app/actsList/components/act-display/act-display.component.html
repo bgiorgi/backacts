@@ -5,43 +5,49 @@
     <img [routerLink]="['/events', act.slug]" src="{{ storageLink+'/'+act.image }}" alt="">
   </div>
   <div class="content-wrapper">
-    <div class="content-header">
-      <button mat-icon-button [matMenuTriggerFor]="menu">  
-      <mat-icon>reply</mat-icon>
-      </button>
-<sup *ngIf="act.belongs_current_user" class="muted-text extra-small">Share your event</sup>          
-      <mat-menu #menu="matMenu">
-        <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Facebook</a>
-        <a target="_blank" href="https://twitter.com/home?status={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Twitter</a>
-        <a target="_blank" href="https://plus.google.com/share?url={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Google+</a>
-        <a (click)="copyLink()" mat-menu-item>Copy link</a>
-      </mat-menu>
-      <button mat-icon-button  matTooltip="{{ !logged ? 'You need to be logged in' : ''}}" [disabled]="act.belongs_current_user">
-      <mat-icon *ngIf="!isBookmarked" (click)="toggleBookmark()">turned_in_not</mat-icon>
-      <mat-icon *ngIf="isBookmarked" (click)="toggleBookmark()">bookmark</mat-icon>
-      <span *ngIf="act.bookmark_count">{{ act.bookmark_count }}</span>
-      </button>
-    </div>
-    <div class="act-content" align="left">
-      <h2>{{ act.title }}</h2>
-      <p class="m-0 act-line-info"><mat-icon class="mat-icon-small">event</mat-icon> <span class="act-detail">{{ act.date_time | date:'EEEE, MMM d' }}  |  {{ act.date_time | date:'h:mm a' }} </span></p>
-      <p class="m-0 act-line-info"><mat-icon class="mat-icon-small">location_on</mat-icon> <span class="act-detail">{{ act.location?.name }}  |  {{ act.location?.address }}</span></p>
-      <p *ngIf="act.link" class="m-0 act-line-info"><mat-icon class="mat-icon-small">info</mat-icon> <a class="info-link" href="{{ act.link }}"><span class="act-detail">{{ act.link }}</span></a></p>
-      <p *ngIf="act.tags.length" class="m-0 act-line-info act-line-tags"><span class="info-tags" *ngFor="let tag of act.tags"> {{ tag.title }} </span></p>
-      <p *ngIf="act.price_amount"><span class="act-price">${{ act.price_amount }}</span> <a *ngIf="act.ticket_link" target="_blank" href="{{ act.ticket_link }}"><span class="act-tickets">tickets</span></a></p>
-      <p *ngIf="!act.price_amount"><span class="act-price">Free</span></p>
-    </div>
-    <div class="act-footer">
-      <div style="white-space:nowrap">
-        <p class="more-info text-left" target="_blank" [routerLink]="['/events', act.slug]">More Info</p>
+    <div class="content-info">
+      <div class="content-header">
+        <sup *ngIf="act.belongs_current_user" class="muted-text share-prompt" [matMenuTriggerFor]="menu">Share your event</sup>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>reply</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Facebook</a>
+          <a target="_blank" href="https://twitter.com/home?status={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Twitter</a>
+          <a target="_blank" href="https://plus.google.com/share?url={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Google+</a>
+          <a (click)="copyLink()" mat-menu-item>Copy link</a>
+        </mat-menu>
+        <button mat-icon-button matTooltip="{{ !logged ? 'You need to be logged in' : ''}}" [disabled]="act.belongs_current_user">
+          <mat-icon class="bookmark-icon" *ngIf="!isBookmarked" (click)="toggleBookmark()">turned_in_not</mat-icon>
+          <mat-icon class="bookmark-icon" *ngIf="isBookmarked" (click)="toggleBookmark()">bookmark</mat-icon>
+          <span class="bookmark-count" *ngIf="act.bookmark_count">{{ act.bookmark_count }}</span>
+        </button>
       </div>
-      <div class="author-wrapper">
-        <div class="act-avatar-container">
-          <a [routerLink]="['/acts/all',{keyword:'@'+act.user.username}]"><img src="{{ storageLink+'/'+act.user?.avatar }}" alt=""></a>
+      <div class="act-content" align="left">
+        <h2>{{ act.title }}</h2>
+        <p class="m-0 act-line-info"><mat-icon class="mat-icon-small">event</mat-icon> <span class="act-detail">{{ act.date_time | date:'EEEE, MMM d' }}  |  {{ act.date_time | date:'h:mm a' }} </span></p>
+        <p class="m-0 act-line-info"><mat-icon class="mat-icon-small">location_on</mat-icon> <span class="act-detail">{{ act.location?.name }}  |  {{ act.location?.address }}</span></p>
+        <p *ngIf="act.link" class="m-0 act-line-info"><mat-icon class="mat-icon-small">info</mat-icon> <a target="_blank" class="info-link" href="{{ act.link }}"><span class="act-detail">{{ act.link }}</span></a></p>
+        <p *ngIf="act.tags.length" class="m-0 act-line-info act-line-tags"><span class="info-tags" *ngFor="let tag of act.tags"> {{ tag.title }} </span></p>
+        <p *ngIf="act.price_amount"><span class="act-price">${{ act.price_amount }}</span> <a *ngIf="act.ticket_link" target="_blank" href="{{ act.ticket_link }}"><span class="act-tickets">tickets</span></a></p>
+        <p *ngIf="!act.price_amount"><span class="act-free">FREE</span></p>
+      </div>
+      <div class="act-footer">
+        <div style="white-space:nowrap">
+          <p class="more-info text-left" target="_blank" [routerLink]="['/events', act.slug]">More Info</p>
         </div>
-        <div>
-          <p>@{{ act.user?.username }}</p>
-        </div>
+
+        <a [routerLink]="['/acts/all',{keyword:'@'+act.user.username}]">
+          <div class="author-wrapper">
+            <div class="act-avatar-container">
+              <img src="{{ storageLink+'/'+act.user?.avatar }}" alt="">
+
+            </div>
+            <div>
+              <p>@{{ act.user?.username }}</p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

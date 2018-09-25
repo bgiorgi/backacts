@@ -1,0 +1,122 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="menu-wrapper">
+  <a routerLink="/"><img src="../../assets/img/logo.png" alt="" class="top-menu-logo"></a>
+  <div class="menu-content">
+
+
+    <button mat-button [matMenuTriggerFor]="menu" class="my-4 menu-selection">{{ actsType == 'all' ? 'All events' : actsType == 'interests' ? 'For Me' : actsType == 'bookmarked' ? 'Bookmarks' : 'Uploads' }} <mat-icon>unfold_more</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item routerLink="/">Everything</a>
+      <a mat-menu-item routerLink="/acts/interests" matTooltip="{{ !logged ? 'You need to be logged in' : 'Edit tags in your profile, to see the content for you'}}">For Me</a>
+      <a mat-menu-item routerLink="/acts/bookmarked" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Bookmarks</a>
+      <a mat-menu-item routerLink="/acts/uploads" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}">Uploads</a>
+    </mat-menu>
+
+    <form action="" [formGroup]="searchForm" [ngClass]="{'disableDiv': formDisabled}">
+
+      <mat-form-field appearance="outline" class="red-input" style="margin-bottom: -15px !important">
+        <span matPrefix style="width:2rem"><mat-icon>search</mat-icon></span>
+        <input matInput placeholder="Search" formControlName="keyword">
+        <mat-label>Search</mat-label>
+      </mat-form-field>
+
+
+
+      <div class="accordion-wrapper">
+        <mat-accordion>
+          <mat-expansion-panel style="display:none;">
+            <mat-expansion-panel-header (click)="openPickerPristine()">
+              <mat-panel-title>
+                <mat-icon>calendar_today</mat-icon> <span>{{ date.value ? (date.value | date) : 'Date' }}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" #date formControlName="date" (click)="picker.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>near_me</mat-icon> <span>{{ distance.value ? distance.value+' km' : 'Distance' }}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <p>
+              <mat-slider class="example-margin" [max]="50" [min]="1" thumbLabel="true" #distance formControlName="distance" (click)="enableBrowserLocation()">
+              </mat-slider>
+            </p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>attach_money</mat-icon> <span>{{ price_max?.value ? price_max.value+' ' : 'Max price' }}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-slider class="example-margin" [max]="100" [min]="1" thumbLabel="true" #price_max formControlName="price_max">
+              </mat-slider>
+            </p>
+          </mat-expansion-panel>
+
+
+
+          <!--<mat-expansion-panel>-->
+          <!--  <mat-expansion-panel-header>-->
+          <!--    <mat-panel-title>-->
+          <!--      <mat-icon>sort</mat-icon> {{ order_by?.value ? (order_by.value=='date_time' ? 'Date' : 'Price') : 'Order by' }}-->
+          <!--    </mat-panel-title>-->
+          <!--  </mat-expansion-panel-header>-->
+          <!--  <p>-->
+          <!--    <mat-radio-group formControlName="order_by" #orderBy>-->
+          <!--      <mat-radio-button value="date_time">Date-->
+          <!--      </mat-radio-button>-->
+          <!--      <br>-->
+          <!--      <br>-->
+          <!--<mat-radio-button value="distance" (click)="enableBrowserLocation()">Nearest-->
+          <!--      <mat-radio-button value="price">Price-->
+          <!--      </mat-radio-button>-->
+          <!--    </mat-radio-group>-->
+          <!--  </p>-->
+          <!--</mat-expansion-panel>-->
+
+        </mat-accordion>
+        <p align="center">
+          <button mat-button *ngIf="!searchForm.pristine" (click)="searchForm.reset()" class="reset-button">Clear</button>
+        </p>
+      </div>
+
+
+    </form>
+
+
+
+  </div>
+
+  <button mat-button class="black-button" [routerLink]="['/add-act']" matTooltip="{{ !logged ? 'You need to be logged in' : ''}}"><span>+</span> Add an Act</button>
+
+  <div class="menu-header" [matMenuTriggerFor]="userMenu" *ngIf="logged">
+    <span style="cursor: pointer;"><b>@{{ currentUser.username }}</b></span>
+    <mat-icon>account_circle</mat-icon>
+    <mat-menu #userMenu="matMenu">
+      <a mat-menu-item [routerLink]="['/edit-profile']">Edit Profile</a>
+      <a mat-menu-item routerLink="/log-in">Logout</a>
+    </mat-menu>
+  </div>
+  <div class="menu-header" *ngIf="!logged">
+    <span [routerLink]="['/log-in']" class="c-pointer"><b>Log in</b></span>
+  </div>
+
+</div>
+
+<div class="dark-background" (click)="ToggleMenu()"></div>
+
+<div class="mobile-menu">
+  <a routerLink="/"><img class="mobile-logo" src="/assets/img/logo_mobile.png"></a>
+  <mat-icon (click)="ToggleMenu()" class="menu-icon">menu</mat-icon>
+</div>

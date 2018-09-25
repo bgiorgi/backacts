@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="log-in-wrapper">
+  <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
+  <p class="login">Login to add upcoming events, activities and gigs:</p>
+
+  <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit(username.value,password.value)">
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" #username>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="red-input">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" type="password" #password>
+    </mat-form-field>
+    <br>
+    <button mat-button type="submit" class="red-button">Login</button>
+
+    <p class="no-account" [routerLink]="['/sign-up']" [queryParams]="{ returnUrl: returnUrl }">Sign Up</p>
+    <a href="www.instagram.com/backacts" target="_blank">
+      <img class="insta" src="/img/inst_logo.png" alt="">
+    </a>
+  </form>
+</div>
+

@@ -1,0 +1,13 @@
+<!--The content below is only a placeholder and can be replaced.-->
+      <a routerLink="/"><img src="/assets/img/logo.png" alt="" class="top-logo"></a>
+  
+  
+<div class="unique-act-container" *ngIf="act">
+    <app-act-display [act]="act"></app-act-display>
+    <mat-card class="act-description" *ngIf="act?.description"> <span>{{ act.description }}</span> </mat-card>
+
+</div>
+
+
+
+

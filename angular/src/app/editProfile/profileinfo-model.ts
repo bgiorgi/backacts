@@ -1,4 +1,5 @@
 export interface Profile {
+    username: string,
     avatar: any,
     tags: Tag[];
     birth_date: string;
@@ -21,8 +22,9 @@ export interface Preference {
 
 
 
-  export function createProfile(avatar?,tags?: Tag[], birth_date?: string, email?: string, preferences?: Preference[]): Profile {
+  export function createProfile(username?,avatar?,tags?: Tag[], birth_date?: string, email?: string, preferences?: Preference[]): Profile {
     return {
+      username,
       avatar,
       tags: [createTag()],
       birth_date,

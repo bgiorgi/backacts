@@ -71,12 +71,31 @@ h1, h2, h3, h4 {
   }
 }
 
-
-.red-button {
-  background-color: $custom-red !important;
-  color: white;
-  font-weight: 800;
+.mat-menu-panel {
+  border-radius: 6px !important;
 }
 
-.round-button {
+.mat-menu-item {
+  background: transparent;
+  font-size: 18px;
+  font-weight: 700;
+  width: 219px;
+  border-radius: 6px !important;
+}
+
+  .red-button {
+    background-color: $custom-red !important;
+    color: white;
+    font-weight: 800;
+  }
+
+  .round-button {
+  }
+
+mat-standard-chip {
+  cursor: pointer;
+}
+
+matTooltip {
+  background-color: white;
 }
