@@ -2,6 +2,10 @@
   "name": "act",
   "version": "0.0.0",
   "scripts": {
+    "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+    "serve:ssr": "node dist/server",
+    "build:client-and-server-bundles": "ng build --prod && ng run act:server",
+    "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -22,14 +26,20 @@
     "@angular/material": "^6.2.1",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/platform-server": "^6.1.8",
     "@angular/router": "^6.0.4",
+    "@nguniversal/express-engine": "^6.1.0",
+    "@nguniversal/module-map-ngfactory-loader": "^6.1.0",
     "angular2-file-drop": "^0.2.0",
     "collections": "^5.1.2",
     "copy-to-clipboard": "^3.0.8",
     "core-js": "^2.5.4",
+    "localstorage-polyfill": "^1.0.1",
     "moment": "^2.22.2",
     "ngx-infinite-scroll": "^6.0.1",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
+    "ts-loader": "^5.2.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -51,6 +61,7 @@
     "protractor": "^5.4.1",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "webpack-cli": "^3.1.1"
   }
 }

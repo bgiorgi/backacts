@@ -45,7 +45,7 @@ class EventController extends Controller
                     $username = str_replace('@','',$request->keyword);
                     return $query->whereRaw("user_id=(select id from users where username='$username' limit 1)"); 
                 }
-                else return $query->where('title','like',"%$request->keyword%");
+                else return $query->whereRaw("(title like '%$request->keyword%') or (description like '%$request->keyword%')");
                 
             })              
             //date

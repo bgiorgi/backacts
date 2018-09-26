@@ -33,7 +33,7 @@ import { StaticPageComponent } from './static-page/static-page.component';
   ],
   imports: [
     CommonModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'act' }),
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(
