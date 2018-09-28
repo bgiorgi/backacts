@@ -7,16 +7,16 @@
   <div class="content-wrapper">
     <div class="content-info">
       <div class="content-header">
-        <sup *ngIf="act.belongs_current_user" class="muted-text share-prompt" [matMenuTriggerFor]="menu">Share your event</sup>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>reply</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Facebook</a>
-          <a target="_blank" href="https://twitter.com/home?status={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Twitter</a>
-          <a target="_blank" href="https://plus.google.com/share?url={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Google+</a>
-          <a (click)="copyLink()" mat-menu-item>Copy link</a>
-        </mat-menu>
+        <!--<sup *ngIf="act.belongs_current_user" class="muted-text share-prompt" [matMenuTriggerFor]="menu">Share your event</sup>-->
+        <!--<button mat-icon-button [matMenuTriggerFor]="menu">-->
+        <!--  <mat-icon>reply</mat-icon>-->
+        <!--</button>-->
+        <!--<mat-menu #menu="matMenu">-->
+        <!--  <a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Facebook</a>-->
+        <!--  <a target="_blank" href="https://twitter.com/home?status={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Twitter</a>-->
+        <!--  <a target="_blank" href="https://plus.google.com/share?url={{ eventUrlPre+'/'+act.slug }}" mat-menu-item>Google+</a>-->
+        <!--  <a (click)="copyLink()" mat-menu-item>Copy link</a>-->
+        <!--</mat-menu>-->
         <button mat-icon-button matTooltip="{{ !logged ? 'You need to be logged in' : ''}}" [disabled]="act.belongs_current_user">
           <mat-icon class="bookmark-icon" *ngIf="!isBookmarked" (click)="toggleBookmark()">turned_in_not</mat-icon>
           <mat-icon class="bookmark-icon" *ngIf="isBookmarked" (click)="toggleBookmark()">bookmark</mat-icon>
