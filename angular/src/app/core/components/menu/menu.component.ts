@@ -56,7 +56,8 @@ export class MenuComponent implements OnInit {
   this.route.paramMap.subscribe((data:any) => this.searchForm.controls['keyword'].setValue(data.params.keyword));
   // change url keyword parameter, when keyword input changes
   this.searchForm.controls['keyword'].valueChanges.subscribe(value => {
-  this.router.navigate(['/acts/all',{keyword:value}]);
+    if(value!=null) this.router.navigate(['/acts/all',{keyword:value}]);
+    else this.router.navigate(['/acts/all']);
 });
   
   }
